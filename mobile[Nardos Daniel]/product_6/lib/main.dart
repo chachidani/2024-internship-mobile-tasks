@@ -17,21 +17,30 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      onGenerateRoute: (settings) {
-        if (settings.name == Detailspage.routeName) {
-          final args = settings.arguments as Shoe;
-        return MaterialPageRoute(builder: (context) {
-          return Detailspage(shoes: args);
-        });
-        }
-      },
+      // onGenerateRoute: (settings) {
+      //   if (settings.name == Detailspage.routeName) {
+      //     final args = settings.arguments as Shoe;
+      //   return MaterialPageRoute(builder: (context) {
+      //     return Detailspage(shoes: args);
+      //   });
+      //   }
+      // },
+        onGenerateRoute: (settings) {
+        switch (settings.name) {
+          case '/':
+            return _createRoute(const HomePage());
+          case '/search':
+            return _createRoute(const Searchpage());
+          case '/detail/add':
+            return _createRoute(const UpDate());
+          case '/detail':
+            final args = settings.arguments as Shoe;
+            return _createRoute(Detailspage(shoes: args,));
+          default:
+            return null;
+        }},
       initialRoute: '/',
-      routes: {
-        '/': (context) => HomePage(),
-        // Detailspage.routeName: (context) => const Detailspage(),
-        '/search': (context) => Searchpage(),
-        '/detail/add': (context) => UpDate(),
-      },
+    
       title: 'Flutter Demo',
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
@@ -43,4 +52,21 @@ class MyApp extends StatelessWidget {
       // home: const HomePage(),
     );
   }
+}
+PageRouteBuilder _createRoute(Widget page) {
+  return PageRouteBuilder(
+    pageBuilder: (context, animation, secondaryAnimation) => page,
+    transitionsBuilder: (context, animation, secondaryAnimation, child) {
+      const begin = Offset(1.0, 0.0);
+      const end = Offset.zero;
+      const curve = Curves.easeIn;
+
+      var tween = Tween(begin: begin, end: end).chain(CurveTween(curve: curve));
+
+      return SlideTransition(
+        position: animation.drive(tween),
+        child: child,
+      );
+    },
+  );
 }

@@ -1,8 +1,18 @@
 import 'package:flutter/material.dart';
 
-class UpDate extends StatelessWidget {
+class UpDate extends StatefulWidget {
   const UpDate({super.key});
 
+  @override
+  State<UpDate> createState() => _UpDateState();
+}
+
+class _UpDateState extends State<UpDate> {
+  final TextEditingController nameController = TextEditingController();
+  final TextEditingController catagoryController = TextEditingController();
+  final TextEditingController descriptionController = TextEditingController();
+  final TextEditingController priceController = TextEditingController();
+ 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -63,6 +73,8 @@ class UpDate extends StatelessWidget {
                 height: 10.0,
               ),
               TextField(
+                controller: nameController,
+              
                 decoration: InputDecoration(
                   border: OutlineInputBorder(
                       borderSide: BorderSide.none,
@@ -82,6 +94,7 @@ class UpDate extends StatelessWidget {
                 height: 10.0,
               ),
               TextField(
+                controller: catagoryController,
                 decoration: InputDecoration(
                   border: OutlineInputBorder(
                       borderSide: BorderSide.none,
@@ -101,6 +114,7 @@ class UpDate extends StatelessWidget {
                 height: 10.0,
               ),
               TextField(
+                controller: priceController,
                 decoration: InputDecoration(
                   border: OutlineInputBorder(
                       borderSide: BorderSide.none,
@@ -120,6 +134,7 @@ class UpDate extends StatelessWidget {
                 height: 10.0,
               ),
               TextField(
+                controller: descriptionController,
                 maxLines: 5,
                 decoration: InputDecoration(
                   border: OutlineInputBorder(
@@ -172,3 +187,5 @@ class UpDate extends StatelessWidget {
     );
   }
 }
+
+
