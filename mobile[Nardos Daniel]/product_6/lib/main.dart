@@ -4,6 +4,7 @@ import 'package:product_6/DetailsPage.dart';
 import 'package:product_6/HomePage.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:product_6/SearchPage.dart';
+import 'package:product_6/UpdatePage.dart';
 import 'package:product_6/shoe.dart';
 
 void main() {
@@ -31,8 +32,12 @@ class MyApp extends StatelessWidget {
             return _createRoute(const HomePage());
           case '/search':
             return _createRoute(const Searchpage());
-          case '/detail/add':
-            return _createRoute(const UpDate());
+          case '/detail/update':
+          final args = settings.arguments as Shoe;
+            return _createRoute(UpDate(shoes: args,));
+          case '/add':
+            return _createRoute(const ADDPage());
+
           case '/detail':
             final args = settings.arguments as Shoe;
             return _createRoute(Detailspage(shoes: args,));

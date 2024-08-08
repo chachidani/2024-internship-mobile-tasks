@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:product_6/AddPage.dart';
+import 'package:product_6/UpdatePage.dart';
 import 'package:product_6/data.dart';
 import 'package:product_6/shoe.dart';
 
@@ -167,11 +168,12 @@ class Detailspage extends StatelessWidget {
                                 borderRadius: BorderRadius.circular(8),
                               )),
                           onPressed: () => {
-                                Navigator.pushNamed(context, '/detail/add')
-                                // Navigator.push(
-                                //     context,
-                                //     MaterialPageRoute(
-                                //         builder: (context) => UpDate()))
+                                Navigator.pushNamed(context, UpDate.routeName,
+                            arguments: Shoe(
+                                name: shoes.name,
+                                image: shoes.image,
+                                price: shoes.price,
+                                size: shoes.size))
                               },
                           child: Text('UPDATE',
                               style: TextStyle(fontWeight: FontWeight.bold)))

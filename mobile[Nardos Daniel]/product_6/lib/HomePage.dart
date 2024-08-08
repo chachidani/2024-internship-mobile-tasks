@@ -217,7 +217,7 @@ class HomePage extends StatelessWidget {
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
-          Navigator.pushNamed(context, '/detail/add');
+          Navigator.pushNamed(context, '/add');
         },
         backgroundColor: Colors.indigoAccent.shade400,
         child: Icon(

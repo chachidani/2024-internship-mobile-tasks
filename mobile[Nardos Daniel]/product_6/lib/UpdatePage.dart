@@ -2,14 +2,16 @@ import 'package:flutter/material.dart';
 import 'package:product_6/data.dart';
 import 'package:product_6/shoe.dart';
 
-class ADDPage extends StatefulWidget {
-  const ADDPage({super.key});
+class UpDate extends StatefulWidget {
+  const UpDate({super.key, required this.shoes});
+  final Shoe shoes;
+  static const routeName = '/detail/update';
 
   @override
-  State<ADDPage> createState() => _UpDateState();
+  State<UpDate> createState() => _UpDateState();
 }
 
-class _UpDateState extends State<ADDPage> {
+class _UpDateState extends State<UpDate> {
   final _formKey = GlobalKey<FormState>();
 
   final TextEditingController nameController = TextEditingController();
@@ -28,7 +30,7 @@ class _UpDateState extends State<ADDPage> {
               color: Colors.indigoAccent.shade400,
             )),
         title: const Text(
-          'Add Product',
+          'Update Product',
           style: TextStyle(fontWeight: FontWeight.bold),
         ),
         centerTitle: true,
@@ -79,6 +81,7 @@ class _UpDateState extends State<ADDPage> {
               TextField(
                 controller: nameController,
                 decoration: InputDecoration(
+                  hintText: widget.shoes.name,
                   border: OutlineInputBorder(
                       borderSide: BorderSide.none,
                       borderRadius: BorderRadius.circular(10)),
@@ -119,6 +122,7 @@ class _UpDateState extends State<ADDPage> {
               TextField(
                 controller: priceController,
                 decoration: InputDecoration(
+                  hintText: widget.shoes.price.toString(),
                   border: OutlineInputBorder(
                       borderSide: BorderSide.none,
                       borderRadius: BorderRadius.circular(10)),
@@ -161,7 +165,7 @@ class _UpDateState extends State<ADDPage> {
                         borderRadius: BorderRadius.circular(8),
                       )),
                   onPressed: () => {_add()},
-                  child: Text('ADD',
+                  child: Text('UPDATE',
                       style: TextStyle(fontWeight: FontWeight.bold))),
               SizedBox(
                 height: 20.0,
@@ -190,24 +194,22 @@ class _UpDateState extends State<ADDPage> {
     );
   }
 
-  
-
   void _add() {
-    final String name = nameController.text;
-    final String catagory = catagoryController.text;
-    final String description = descriptionController.text;
-    final String price = priceController.text;
-
-    Shoes.add(Shoe(
-        name: name,
-        image: 'assets/img6.jpg',
-        price: double.parse(price),
-        size: '40'));
+    int ind = Shoes.indexOf(widget.shoes);
+    if (ind != -1) {
+      Shoes[ind] = Shoe(
+          name: nameController.text,
+          image: Shoes[ind].image,
+          price: double.parse(priceController.text),
+          size: Shoes[ind].size); 
     ScaffoldMessenger.of(context).showSnackBar(
-      SnackBar(content: Column(
+      SnackBar(
+          content: Column(
         children: [
-          Text('Added Successfully'),
-          TextButton(onPressed: ()=>{Navigator.of(context).pushNamed("/")}, child: Text("Go to home page"))
+          Text('Updated Successfully'),
+          TextButton(
+              onPressed: () => {Navigator.of(context).pushNamed("/")},
+              child: Text("Go to home page"))
         ],
       )),
     );
@@ -217,5 +219,22 @@ class _UpDateState extends State<ADDPage> {
     priceController.clear();
     catagoryController.clear();
     descriptionController.clear();
+    }else{
+      ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(
+          content: Column(
+        children: [
+          Text('Failed to update'),
+          TextButton(
+              onPressed: () => {Navigator.of(context).pushNamed("/")},
+              child: Text("Go to home page"))
+        ],
+      )),
+    );
+    }
+
+    
+
+   
   }
 }
