@@ -34,14 +34,22 @@ Category Selection: Choose the category for the product.
 Save Button: Save the new product to the catalog.
 
 Screenshots
+
 Home Page
+
 <img src="mobile[Nardos Daniel]\product_6\assets\HomePage.png">
+
+
 Detail Page
+
 <img src="mobile[Nardos Daniel]\product_6\assets\Detailpage.png">
 
 Add Page
+
 <img src="mobile[Nardos Daniel]\product_6\assets\addpage1.png">
 <img src="mobile[Nardos Daniel]\product_6\assets\addpage2.png">
+
 Search Page
+
 <img src="mobile[Nardos Daniel]\product_6\assets\searchPage.png">
 <img src="mobile[Nardos Daniel]\product_6\assets\searchpage2.png">
