@@ -9,7 +9,7 @@ class Searchpage extends StatelessWidget {
       context: context,
       builder: (BuildContext context) {
         return Container(
-          height: 300,
+          height: 320,
           decoration: BoxDecoration(color: Colors.white),
           child: Center(
             child: Padding(
@@ -18,38 +18,48 @@ class Searchpage extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.start,
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
-                  SizedBox(height: 20,),
+                  const SizedBox(
+                    height: 20,
+                  ),
                   const Text('Category'),
-                  SizedBox(
+                  const SizedBox(
                     height: 10,
                   ),
-                  TextField(
-                    
-                    decoration: InputDecoration(
-                      
-                      border: OutlineInputBorder(
-                        
-                          borderRadius: BorderRadius.circular(10)),
+                  SizedBox(
+                    height: 50,
+                    child: TextField(
+                      decoration: InputDecoration(
+                        border: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(10)),
+                      ),
                     ),
                   ),
                   SizedBox(
                     height: 10,
                   ),
                   Text('Price'),
-                  SizedBox(height: 40,),
-                    OutlinedButton(
-                  style: OutlinedButton.styleFrom(
-                      backgroundColor: Colors.indigoAccent.shade400,
-                      foregroundColor: Colors.white,
-                      fixedSize: Size(double.maxFinite, 45),
-                      padding: EdgeInsets.symmetric(
-                          horizontal: 50.0, vertical: 15.0),
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(8),
-                      )),
-                  onPressed: () => {},
-                  child: Text('APPLY',
-                      style: TextStyle(fontWeight: FontWeight.bold , ))),
+                  RangeSlider(
+                      values: RangeValues(0.2, 0.8),
+                      activeColor: Colors.indigoAccent.shade400,
+                      onChanged: (RangeValues) => {}),
+                  SizedBox(
+                    height: 30,
+                  ),
+                  OutlinedButton(
+                      style: OutlinedButton.styleFrom(
+                          backgroundColor: Colors.indigoAccent.shade400,
+                          foregroundColor: Colors.white,
+                          fixedSize: Size(double.maxFinite, 45),
+                          padding: EdgeInsets.symmetric(
+                              horizontal: 50.0, vertical: 15.0),
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(8),
+                          )),
+                      onPressed: () => {},
+                      child: Text('APPLY',
+                          style: TextStyle(
+                            fontWeight: FontWeight.bold,
+                          ))),
                 ],
               ),
             ),

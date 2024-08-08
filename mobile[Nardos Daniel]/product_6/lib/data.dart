@@ -13,12 +13,12 @@ List<Shoe> Shoes = [
       size: '40'),
   Shoe(
       name: 'Derby Leather Shoes',
-      image: 'assets/img6.jpg',
+      image: 'assets/img11.jpg',
       price: 99.99,
       size: '41'),
   Shoe(
       name: 'Derby Leather Shoes',
-      image: 'assets/img6.jpg',
+      image: 'assets/img2.jpg',
       price: 89.99,
       size: '42'),
   Shoe(
@@ -28,27 +28,27 @@ List<Shoe> Shoes = [
       size: '43'),
   Shoe(
       name: 'Derby Leather Shoes',
-      image: 'assets/img5.jpg',
+      image: 'assets/img4.jpg',
       price: 49.99,
       size: '44'),
   Shoe(
       name: 'Derby Leather Shoes',
-      image: 'assets/img3.jpg',
+      image: 'assets/img7.jpg',
       price: 109.99,
       size: '45'),
   Shoe(
       name: 'Derby Leather Shoes',
-      image: 'assets/img6.jpg',
+      image: 'assets/img8.jpg',
       price: 119.99,
       size: '39'),
   Shoe(
       name: 'Derby Leather Shoes',
-      image: 'assets/img5.jpg',
+      image: 'assets/img9.jpg',
       price: 129.99,
       size: '40'),
   Shoe(
       name: 'Derby Leather Shoes',
-      image: 'assets/img6.jpg',
+      image: 'assets/img10.jpg',
       price: 139.99,
       size: '41'),
 ];

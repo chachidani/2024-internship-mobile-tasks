@@ -5,7 +5,7 @@ import 'package:product_6/shoe.dart';
 class Detailspage extends StatelessWidget {
   const Detailspage({super.key, required this.shoes});
   final Shoe shoes;
-
+  static const routeName = '/detail';
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -38,7 +38,7 @@ class Detailspage extends StatelessWidget {
                   // color: Colors.white,
                   child: Center(
                     child: IconButton(
-                      color: Colors.black,
+                      // color: Colors.black,
                       onPressed: () {
                         Navigator.pop(context);
                       },
@@ -157,10 +157,11 @@ class Detailspage extends StatelessWidget {
                                 borderRadius: BorderRadius.circular(8),
                               )),
                           onPressed: () => {
-                                Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                        builder: (context) => UpDate()))
+                            Navigator.pushNamed(context, '/detail/add')
+                                // Navigator.push(
+                                //     context,
+                                //     MaterialPageRoute(
+                                //         builder: (context) => UpDate()))
                               },
                           child: Text('UPDATE',
                               style: TextStyle(fontWeight: FontWeight.bold)))
@@ -189,7 +190,7 @@ Widget _buildSizeCard(String size, String Size) {
     width: 70,
     height: 60,
     child: Card(
-       color: isSelected ? Colors.indigoAccent.shade400 : Colors.white,
+      color: isSelected ? Colors.indigoAccent.shade400 : Colors.white,
       child: Center(
         child: Text(
           size,

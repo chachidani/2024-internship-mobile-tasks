@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:product_6/DetailsPage.dart';
 import 'package:product_6/SearchPage.dart';
 import 'package:product_6/data.dart';
+import 'package:product_6/shoe.dart';
 
 class HomePage extends StatelessWidget {
   const HomePage({super.key});
@@ -40,11 +41,32 @@ class HomePage extends StatelessWidget {
             ),
           ),
           SizedBox(
-            width: 160.0,
+            width: 150.0,
           ),
-          IconButton.outlined(
-              onPressed: () => {},
-              icon: Icon(Icons.notifications_active_outlined))
+          Container(
+              decoration: BoxDecoration(
+                border: Border.all(width: 2, color: Colors.grey.shade300),
+                borderRadius: BorderRadius.circular(5),
+              ),
+              child: InkWell(
+                  onTap: () {},
+                  splashColor: Colors.grey.shade300,
+                  child: Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Stack(children: [
+                      Icon(Icons.notifications_none_rounded),
+                      Positioned(
+                          top: 3,
+                          right: 5,
+                          child: Container(
+                            width: 6,
+                            height: 6,
+                            decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(20),
+                                color: Color.fromARGB(255, 63, 81, 243)),
+                          ))
+                    ]),
+                  ))),
         ],
       ),
       body: Padding(
@@ -62,19 +84,33 @@ class HomePage extends StatelessWidget {
                         fontWeight: FontWeight.bold,
                         fontFamily: AutofillHints.countryName),
                   ),
-                  IconButton.outlined(
-                      onPressed: () => {
-                            Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (context) => Searchpage()))
+                  Container(
+                      decoration: BoxDecoration(
+                        border:
+                            Border.all(width: 2, color: Colors.grey.shade300),
+                        borderRadius: BorderRadius.circular(5),
+                      ),
+                      child: InkWell(
+                          onTap: () {
+                            Navigator.pushNamed(context, '/search');
+                            // Navigator.push(
+                            //     context,
+                            //     MaterialPageRoute(
+                            //         builder: (context) => Searchpage()));
                           },
-                      icon: Icon(
-                        Icons.search_outlined,
-                        color: Colors.black54,
-                      ))
+                          splashColor: Colors.grey.shade300,
+                          child: Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: Icon(
+                              Icons.search_outlined,
+                              color: Colors.black45,
+                            ),
+                          ))),
                 ],
               ),
+            ),
+            SizedBox(
+              height: 10,
             ),
             Expanded(
               child: GridView.builder(
@@ -90,11 +126,17 @@ class HomePage extends StatelessWidget {
                     clipBehavior: Clip.hardEdge,
                     child: InkWell(
                       onTap: () => {
-                        Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) =>
-                                    Detailspage(shoes: Shoes[index])))
+                        Navigator.pushNamed(context, Detailspage.routeName,
+                            arguments: Shoe(
+                                name: Shoes[index].name,
+                                image: Shoes[index].image,
+                                price: Shoes[index].price,
+                                size: Shoes[index].size))
+                        // Navigator.push(
+                        //     context,
+                        //     MaterialPageRoute(
+                        //         builder: (context) =>
+                        //             Detailspage(shoes: Shoes[index])))
                       },
                       splashColor: Colors.indigoAccent.shade400,
                       child: Column(
