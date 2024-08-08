@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:product_6/data.dart';
+import 'package:product_6/shoe.dart';
 
 class UpDate extends StatefulWidget {
   const UpDate({super.key});
@@ -8,11 +10,13 @@ class UpDate extends StatefulWidget {
 }
 
 class _UpDateState extends State<UpDate> {
+  final _formKey = GlobalKey<FormState>();
+
   final TextEditingController nameController = TextEditingController();
   final TextEditingController catagoryController = TextEditingController();
   final TextEditingController descriptionController = TextEditingController();
   final TextEditingController priceController = TextEditingController();
- 
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -74,7 +78,6 @@ class _UpDateState extends State<UpDate> {
               ),
               TextField(
                 controller: nameController,
-              
                 decoration: InputDecoration(
                   border: OutlineInputBorder(
                       borderSide: BorderSide.none,
@@ -157,7 +160,7 @@ class _UpDateState extends State<UpDate> {
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(8),
                       )),
-                  onPressed: () => {},
+                  onPressed: () => {_add()},
                   child: Text('ADD',
                       style: TextStyle(fontWeight: FontWeight.bold))),
               SizedBox(
@@ -186,6 +189,33 @@ class _UpDateState extends State<UpDate> {
       ),
     );
   }
+
+  
+
+  void _add() {
+    final String name = nameController.text;
+    final String catagory = catagoryController.text;
+    final String description = descriptionController.text;
+    final String price = priceController.text;
+
+    Shoes.add(Shoe(
+        name: name,
+        image: 'assets/img6.jpg',
+        price: double.parse(price),
+        size: '40'));
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(content: Column(
+        children: [
+          Text('Added Successfully'),
+          TextButton(onPressed: ()=>{Navigator.of(context).pushNamed("/")}, child: Text("Go to home page"))
+        ],
+      )),
+    );
+
+    _formKey.currentState!.reset();
+    nameController.clear();
+    priceController.clear();
+    catagoryController.clear();
+    descriptionController.clear();
+  }
 }
-
-

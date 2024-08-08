@@ -1,11 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:product_6/AddPage.dart';
+import 'package:product_6/data.dart';
 import 'package:product_6/shoe.dart';
 
 class Detailspage extends StatelessWidget {
   const Detailspage({super.key, required this.shoes});
   final Shoe shoes;
   static const routeName = '/detail';
+  void _delete(BuildContext, context) {
+    Shoes.remove(shoes);
+    ScaffoldMessenger.of(context)
+        .showSnackBar(SnackBar(content: Text('deleted successfully ')));
+    Navigator.of(context).pushNamed('/');
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -90,7 +98,7 @@ class Detailspage extends StatelessWidget {
                             fontSize: 20.0, fontWeight: FontWeight.bold),
                       ),
                       Text(
-                        '${shoes.price}',
+                        '\$${shoes.price}',
                         style: TextStyle(
                             fontSize: 15.0, fontWeight: FontWeight.bold),
                       )
@@ -132,7 +140,9 @@ class Detailspage extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       OutlinedButton(
-                        onPressed: () {},
+                        onPressed: () {
+                          _delete(BuildContext, context);
+                        },
                         style: OutlinedButton.styleFrom(
                             foregroundColor: Color.fromARGB(230, 255, 19, 19),
                             padding: EdgeInsets.symmetric(
@@ -157,7 +167,7 @@ class Detailspage extends StatelessWidget {
                                 borderRadius: BorderRadius.circular(8),
                               )),
                           onPressed: () => {
-                            Navigator.pushNamed(context, '/detail/add')
+                                Navigator.pushNamed(context, '/detail/add')
                                 // Navigator.push(
                                 //     context,
                                 //     MaterialPageRoute(

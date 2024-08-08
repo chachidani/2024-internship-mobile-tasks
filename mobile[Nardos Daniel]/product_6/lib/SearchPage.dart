@@ -182,7 +182,7 @@ class Searchpage extends StatelessWidget {
                                       fontWeight: FontWeight.bold),
                                 ),
                                 Text(
-                                  '${Shoes[index].price}',
+                                  '\$${Shoes[index].price}',
                                   style: TextStyle(
                                       fontSize: 15.0,
                                       fontWeight: FontWeight.bold),
