@@ -4,12 +4,12 @@ import '../../../../core/failure/failure.dart';
 import '../../../../core/shoe.dart';
 import '../repositories/product_repository.dart';
 
-class UpdateProductUsecase {
+class GetProductByIdUsecase {
   final ProductRepositories productRepository;
 
-  UpdateProductUsecase({required this.productRepository});
+  GetProductByIdUsecase({required this.productRepository});
 
-  Future<Either<Failure , Shoe>> call(Shoe product) async {
-    return await productRepository.updateProduct(product);
+  Future<Either<Failure, Shoe>> call(String id) async {
+    return await productRepository.getProduct(id);
   }
 }
