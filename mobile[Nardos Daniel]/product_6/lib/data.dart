@@ -1,4 +1,4 @@
-import 'package:product_6/shoe.dart';
+import 'shoe.dart';
 
 List<Shoe> Shoes = [
   Shoe(

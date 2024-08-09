@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:product_6/add_page.dart';
-import 'package:product_6/detail_page.dart';
-import 'package:product_6/home_page.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:product_6/search_page.dart';
-import 'package:product_6/update_page.dart';
-import 'package:product_6/shoe.dart';
+
+import 'add_page.dart';
+import 'detail_page.dart';
+import 'home_page.dart';
+import 'search_page.dart';
+import 'shoe.dart';
+import 'update_page.dart';
 
 void main() {
   runApp(const MyApp());

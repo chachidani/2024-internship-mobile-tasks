@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:product_6/data.dart';
-import 'package:product_6/shoe.dart';
+import 'data.dart';
+import 'shoe.dart';
 
 class ADDPage extends StatefulWidget {
   const ADDPage({super.key});

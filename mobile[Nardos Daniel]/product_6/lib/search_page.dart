@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:product_6/data.dart';
+import 'data.dart';
 
 class Searchpage extends StatelessWidget {
   const Searchpage({super.key});

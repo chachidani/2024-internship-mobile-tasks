@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:product_6/update_page.dart';
-import 'package:product_6/data.dart';
-import 'package:product_6/shoe.dart';
+
+import 'data.dart';
+import 'shoe.dart';
+import 'update_page.dart';
 
 class Detailspage extends StatelessWidget {
   const Detailspage({super.key, required this.shoes});
