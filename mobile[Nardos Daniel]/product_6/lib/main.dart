@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:product_6/AddPage.dart';
-import 'package:product_6/DetailsPage.dart';
-import 'package:product_6/HomePage.dart';
+import 'package:product_6/add_page.dart';
+import 'package:product_6/detail_page.dart';
+import 'package:product_6/home_page.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:product_6/SearchPage.dart';
-import 'package:product_6/UpdatePage.dart';
+import 'package:product_6/search_page.dart';
+import 'package:product_6/update_page.dart';
 import 'package:product_6/shoe.dart';
 
 void main() {
@@ -18,34 +18,32 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      // onGenerateRoute: (settings) {
-      //   if (settings.name == Detailspage.routeName) {
-      //     final args = settings.arguments as Shoe;
-      //   return MaterialPageRoute(builder: (context) {
-      //     return Detailspage(shoes: args);
-      //   });
-      //   }
-      // },
-        onGenerateRoute: (settings) {
+    
+      onGenerateRoute: (settings) {
         switch (settings.name) {
           case '/':
             return _createRoute(const HomePage());
           case '/search':
             return _createRoute(const Searchpage());
           case '/detail/update':
-          final args = settings.arguments as Shoe;
-            return _createRoute(UpDate(shoes: args,));
+            final args = settings.arguments as Shoe;
+            return _createRoute(UpDate(
+              shoes: args,
+            ));
           case '/add':
             return _createRoute(const ADDPage());
 
           case '/detail':
             final args = settings.arguments as Shoe;
-            return _createRoute(Detailspage(shoes: args,));
+            return _createRoute(Detailspage(
+              shoes: args,
+            ));
           default:
             return null;
-        }},
+        }
+      },
       initialRoute: '/',
-    
+
       title: 'Flutter Demo',
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
@@ -58,6 +56,7 @@ class MyApp extends StatelessWidget {
     );
   }
 }
+
 PageRouteBuilder _createRoute(Widget page) {
   return PageRouteBuilder(
     pageBuilder: (context, animation, secondaryAnimation) => page,

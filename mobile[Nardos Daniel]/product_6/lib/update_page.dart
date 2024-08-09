@@ -42,40 +42,38 @@ class _UpDateState extends State<UpDate> {
             mainAxisAlignment: MainAxisAlignment.start,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Container(
+              const SizedBox(
                 height: 200,
                 width: double.infinity,
                 child: Center(
                   child: Card(
                     color: Color.fromARGB(169, 248, 244, 244),
                     child: Center(
-                      child: Container(
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Icon(
-                              Icons.image_outlined,
-                              size: 40,
-                            ),
-                            SizedBox(
-                              height: 10.0,
-                            ),
-                            Text('upload image')
-                          ],
-                        ),
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Icon(
+                            Icons.image_outlined,
+                            size: 40,
+                          ),
+                          SizedBox(
+                            height: 10.0,
+                          ),
+                          Text('upload image')
+                        ],
                       ),
                     ),
                   ),
                 ),
               ),
-              SizedBox(
+              const SizedBox(
                 height: 20.0,
               ),
-              Text(
+              const Text(
                 'name',
                 textAlign: TextAlign.start,
               ),
-              SizedBox(
+              const SizedBox(
                 height: 10.0,
               ),
               TextField(
@@ -86,17 +84,17 @@ class _UpDateState extends State<UpDate> {
                       borderSide: BorderSide.none,
                       borderRadius: BorderRadius.circular(10)),
                   filled: true,
-                  fillColor: Color.fromARGB(169, 216, 213, 213),
+                  fillColor: const Color.fromARGB(169, 216, 213, 213),
                 ),
               ),
-              SizedBox(
+              const SizedBox(
                 height: 10.0,
               ),
-              Text(
+              const Text(
                 'category',
                 textAlign: TextAlign.start,
               ),
-              SizedBox(
+              const SizedBox(
                 height: 10.0,
               ),
               TextField(
@@ -106,17 +104,17 @@ class _UpDateState extends State<UpDate> {
                       borderSide: BorderSide.none,
                       borderRadius: BorderRadius.circular(10)),
                   filled: true,
-                  fillColor: Color.fromARGB(169, 216, 213, 213),
+                  fillColor: const Color.fromARGB(169, 216, 213, 213),
                 ),
               ),
-              SizedBox(
+              const SizedBox(
                 height: 10.0,
               ),
-              Text(
+              const Text(
                 'price',
                 textAlign: TextAlign.start,
               ),
-              SizedBox(
+              const SizedBox(
                 height: 10.0,
               ),
               TextField(
@@ -127,17 +125,17 @@ class _UpDateState extends State<UpDate> {
                       borderSide: BorderSide.none,
                       borderRadius: BorderRadius.circular(10)),
                   filled: true,
-                  fillColor: Color.fromARGB(169, 216, 213, 213),
+                  fillColor: const Color.fromARGB(169, 216, 213, 213),
                 ),
               ),
-              SizedBox(
+              const SizedBox(
                 height: 10.0,
               ),
-              Text(
+              const Text(
                 'description',
                 textAlign: TextAlign.start,
               ),
-              SizedBox(
+              const SizedBox(
                 height: 10.0,
               ),
               TextField(
@@ -148,43 +146,43 @@ class _UpDateState extends State<UpDate> {
                       borderSide: BorderSide.none,
                       borderRadius: BorderRadius.circular(10)),
                   filled: true,
-                  fillColor: Color.fromARGB(169, 216, 213, 213),
+                  fillColor: const Color.fromARGB(169, 216, 213, 213),
                 ),
               ),
-              SizedBox(
+              const SizedBox(
                 height: 20.0,
               ),
               OutlinedButton(
                   style: OutlinedButton.styleFrom(
                       backgroundColor: Colors.indigoAccent.shade400,
                       foregroundColor: Colors.white,
-                      fixedSize: Size(double.maxFinite, 50),
-                      padding: EdgeInsets.symmetric(
+                      fixedSize: const Size(double.maxFinite, 50),
+                      padding: const EdgeInsets.symmetric(
                           horizontal: 50.0, vertical: 15.0),
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(8),
                       )),
                   onPressed: () => {_add()},
-                  child: Text('UPDATE',
+                  child: const Text('UPDATE',
                       style: TextStyle(fontWeight: FontWeight.bold))),
-              SizedBox(
+              const SizedBox(
                 height: 20.0,
               ),
               OutlinedButton(
                 onPressed: () {},
                 style: OutlinedButton.styleFrom(
-                    foregroundColor: Color.fromARGB(230, 255, 19, 19),
-                    fixedSize: Size(double.maxFinite, 50),
+                    foregroundColor: const Color.fromARGB(230, 255, 19, 19),
+                    fixedSize: const Size(double.maxFinite, 50),
                     padding:
-                        EdgeInsets.symmetric(horizontal: 50.0, vertical: 15.0),
-                    side: BorderSide(
+                        const EdgeInsets.symmetric(horizontal: 50.0, vertical: 15.0),
+                    side: const BorderSide(
                       color: Color.fromARGB(230, 255, 19, 19),
                       width: 1.0,
                     ),
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(8),
                     )),
-                child: Text("DELETE",
+                child: const Text("DELETE",
                     style: TextStyle(fontWeight: FontWeight.bold)),
               ),
             ],
@@ -201,40 +199,36 @@ class _UpDateState extends State<UpDate> {
           name: nameController.text,
           image: Shoes[ind].image,
           price: double.parse(priceController.text),
-          size: Shoes[ind].size); 
-    ScaffoldMessenger.of(context).showSnackBar(
-      SnackBar(
-          content: Column(
-        children: [
-          Text('Updated Successfully'),
-          TextButton(
-              onPressed: () => {Navigator.of(context).pushNamed("/")},
-              child: Text("Go to home page"))
-        ],
-      )),
-    );
-
-    _formKey.currentState!.reset();
-    nameController.clear();
-    priceController.clear();
-    catagoryController.clear();
-    descriptionController.clear();
-    }else{
+          size: Shoes[ind].size);
       ScaffoldMessenger.of(context).showSnackBar(
-      SnackBar(
-          content: Column(
-        children: [
-          Text('Failed to update'),
-          TextButton(
-              onPressed: () => {Navigator.of(context).pushNamed("/")},
-              child: Text("Go to home page"))
-        ],
-      )),
-    );
+        SnackBar(
+            content: Column(
+          children: [
+            const Text('Updated Successfully'),
+            TextButton(
+                onPressed: () => {Navigator.of(context).pushNamed("/")},
+                child: const Text("Go to home page"))
+          ],
+        )),
+      );
+
+      _formKey.currentState!.reset();
+      nameController.clear();
+      priceController.clear();
+      catagoryController.clear();
+      descriptionController.clear();
+    } else {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+            content: Column(
+          children: [
+            const Text('Failed to update'),
+            TextButton(
+                onPressed: () => {Navigator.of(context).pushNamed("/")},
+                child: const Text("Go to home page"))
+          ],
+        )),
+      );
     }
-
-    
-
-   
   }
 }

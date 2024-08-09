@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:product_6/AddPage.dart';
-import 'package:product_6/UpdatePage.dart';
+import 'package:product_6/update_page.dart';
 import 'package:product_6/data.dart';
 import 'package:product_6/shoe.dart';
 
@@ -8,10 +7,10 @@ class Detailspage extends StatelessWidget {
   const Detailspage({super.key, required this.shoes});
   final Shoe shoes;
   static const routeName = '/detail';
-  void _delete(BuildContext, context) {
+  void _delete(BuildContext context) {
     Shoes.remove(shoes);
     ScaffoldMessenger.of(context)
-        .showSnackBar(SnackBar(content: Text('deleted successfully ')));
+        .showSnackBar(const SnackBar(content: Text('deleted successfully ')));
     Navigator.of(context).pushNamed('/');
   }
 
@@ -22,11 +21,11 @@ class Detailspage extends StatelessWidget {
         children: [
           Stack(
             children: [
-              Container(
+              SizedBox(
                 height: MediaQuery.of(context).size.height * 0.32,
                 width: double.infinity,
                 child: ClipRRect(
-                  borderRadius: BorderRadius.only(
+                  borderRadius: const BorderRadius.only(
                       topRight: Radius.circular(20),
                       topLeft: Radius.circular(20)),
                   child: Image.asset(
@@ -69,7 +68,7 @@ class Detailspage extends StatelessWidget {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    Text(
+                    const Text(
                       "Men's shoe",
                       style: TextStyle(fontSize: 15.0, color: Colors.black45),
                     ),
@@ -79,7 +78,7 @@ class Detailspage extends StatelessWidget {
                           Icons.star,
                           color: Colors.yellow[700],
                         ),
-                        Text(
+                        const Text(
                           '(4.0)',
                           style:
                               TextStyle(fontSize: 15.0, color: Colors.black45),
@@ -95,25 +94,25 @@ class Detailspage extends StatelessWidget {
                     children: [
                       Text(
                         shoes.name,
-                        style: TextStyle(
+                        style: const TextStyle(
                             fontSize: 20.0, fontWeight: FontWeight.bold),
                       ),
                       Text(
                         '\$${shoes.price}',
-                        style: TextStyle(
+                        style: const TextStyle(
                             fontSize: 15.0, fontWeight: FontWeight.bold),
                       )
                     ],
                   ),
                 ),
-                Text(
+                const Text(
                   'Size:',
                   style: TextStyle(fontSize: 20.0),
                 ),
-                Container(
+                SizedBox(
                   height: 60,
                   child: ListView(
-                    physics: AlwaysScrollableScrollPhysics(),
+                    physics: const AlwaysScrollableScrollPhysics(),
                     scrollDirection: Axis.horizontal,
                     children: [
                       _buildSizeCard('39', shoes.size),
@@ -126,61 +125,57 @@ class Detailspage extends StatelessWidget {
                     ],
                   ),
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 20.0,
                 ),
-                Container(
-                  child: Text(
-                      'A derby leather shoe is a classic and versatile footwear option characterized by its open lacing system, where the shoelace eyelets are sewn on top of the vamp (the upper part of the shoe). This design feature provides a more relaxed and casual look compared to the closed lacing system of oxford shoes. Derby shoes are typically made of high-quality leather, known for its durability and elegance, making them suitable for both formal and casual occasions. With their timeless style and comfortable fit, derby leather shoes are a staple in any well-rounded wardrobe.'),
-                ),
-                SizedBox(
+                const Text(
+                    'A derby leather shoe is a classic and versatile footwear option characterized by its open lacing system, where the shoelace eyelets are sewn on top of the vamp (the upper part of the shoe). This design feature provides a more relaxed and casual look compared to the closed lacing system of oxford shoes. Derby shoes are typically made of high-quality leather, known for its durability and elegance, making them suitable for both formal and casual occasions. With their timeless style and comfortable fit, derby leather shoes are a staple in any well-rounded wardrobe.'),
+                const SizedBox(
                   height: 20.0,
                 ),
-                Container(
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      OutlinedButton(
-                        onPressed: () {
-                          _delete(BuildContext, context);
-                        },
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    OutlinedButton(
+                      onPressed: () {
+                        _delete(context);
+                      },
+                      style: OutlinedButton.styleFrom(
+                          foregroundColor: const Color.fromARGB(230, 255, 19, 19),
+                          padding: const EdgeInsets.symmetric(
+                              horizontal: 50.0, vertical: 15.0),
+                          side: const BorderSide(
+                            color: Color.fromARGB(230, 255, 19, 19),
+                            width: 1.0,
+                          ),
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(8),
+                          )),
+                      child: const Text("DELETE",
+                          style: TextStyle(fontWeight: FontWeight.bold)),
+                    ),
+                    OutlinedButton(
                         style: OutlinedButton.styleFrom(
-                            foregroundColor: Color.fromARGB(230, 255, 19, 19),
-                            padding: EdgeInsets.symmetric(
+                            backgroundColor: Colors.indigoAccent.shade400,
+                            foregroundColor: Colors.white,
+                            padding: const EdgeInsets.symmetric(
                                 horizontal: 50.0, vertical: 15.0),
-                            side: BorderSide(
-                              color: Color.fromARGB(230, 255, 19, 19),
-                              width: 1.0,
-                            ),
                             shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(8),
                             )),
-                        child: Text("DELETE",
-                            style: TextStyle(fontWeight: FontWeight.bold)),
-                      ),
-                      OutlinedButton(
-                          style: OutlinedButton.styleFrom(
-                              backgroundColor: Colors.indigoAccent.shade400,
-                              foregroundColor: Colors.white,
-                              padding: EdgeInsets.symmetric(
-                                  horizontal: 50.0, vertical: 15.0),
-                              shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(8),
-                              )),
-                          onPressed: () => {
-                                Navigator.pushNamed(context, UpDate.routeName,
-                            arguments: Shoe(
-                                name: shoes.name,
-                                image: shoes.image,
-                                price: shoes.price,
-                                size: shoes.size))
-                              },
-                          child: Text('UPDATE',
-                              style: TextStyle(fontWeight: FontWeight.bold)))
-                    ],
-                  ),
+                        onPressed: () => {
+                              Navigator.pushNamed(context, UpDate.routeName,
+                                  arguments: Shoe(
+                                      name: shoes.name,
+                                      image: shoes.image,
+                                      price: shoes.price,
+                                      size: shoes.size))
+                            },
+                        child: const Text('UPDATE',
+                            style: TextStyle(fontWeight: FontWeight.bold)))
+                  ],
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 20.0,
                 ),
               ],
@@ -192,9 +187,9 @@ class Detailspage extends StatelessWidget {
   }
 }
 
-Widget _buildSizeCard(String size, String Size) {
+Widget _buildSizeCard(String size, String _size) {
   bool isSelected = false;
-  if (size == Size) {
+  if (size == _size) {
     isSelected = true;
   }
   return Container(

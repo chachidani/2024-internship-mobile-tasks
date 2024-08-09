@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:product_6/DetailsPage.dart';
-import 'package:product_6/SearchPage.dart';
+import 'package:product_6/detail_page.dart';
 import 'package:product_6/data.dart';
 import 'package:product_6/shoe.dart';
 
@@ -13,21 +12,21 @@ class HomePage extends StatelessWidget {
       appBar: AppBar(
         actions: [
           Container(
-            padding: EdgeInsets.all(5.0),
+            padding: const EdgeInsets.all(5.0),
             child: Row(
               children: [
                 ClipRRect(
-                  borderRadius: BorderRadius.all(Radius.circular(20)),
+                  borderRadius: const BorderRadius.all(Radius.circular(20)),
                   child: Image.asset(
                     'assets/img1.jpg',
                     width: 40.0,
                     height: 50.0,
                   ),
                 ),
-                SizedBox(
+                const SizedBox(
                   width: 20.0,
                 ),
-                Column(
+                const Column(
                   children: [
                     Text('July 14,2023',
                         style: TextStyle(fontWeight: FontWeight.w400)),
@@ -40,7 +39,7 @@ class HomePage extends StatelessWidget {
               ],
             ),
           ),
-          SizedBox(
+          const SizedBox(
             width: 150.0,
           ),
           Container(
@@ -54,7 +53,7 @@ class HomePage extends StatelessWidget {
                   child: Padding(
                     padding: const EdgeInsets.all(8.0),
                     child: Stack(children: [
-                      Icon(Icons.notifications_none_rounded),
+                      const Icon(Icons.notifications_none_rounded),
                       Positioned(
                           top: 3,
                           right: 5,
@@ -63,53 +62,51 @@ class HomePage extends StatelessWidget {
                             height: 6,
                             decoration: BoxDecoration(
                                 borderRadius: BorderRadius.circular(20),
-                                color: Color.fromARGB(255, 63, 81, 243)),
+                                color: const Color.fromARGB(255, 63, 81, 243)),
                           ))
                     ]),
                   ))),
         ],
       ),
       body: Padding(
-        padding: EdgeInsets.all(20),
+        padding: const EdgeInsets.all(20),
         child: Column(
           children: [
-            Container(
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Text(
-                    'Available Products',
-                    style: TextStyle(
-                        fontSize: 25.0,
-                        fontWeight: FontWeight.bold,
-                        fontFamily: AutofillHints.countryName),
-                  ),
-                  Container(
-                      decoration: BoxDecoration(
-                        border:
-                            Border.all(width: 2, color: Colors.grey.shade300),
-                        borderRadius: BorderRadius.circular(5),
-                      ),
-                      child: InkWell(
-                          onTap: () {
-                            Navigator.pushNamed(context, '/search');
-                            // Navigator.push(
-                            //     context,
-                            //     MaterialPageRoute(
-                            //         builder: (context) => Searchpage()));
-                          },
-                          splashColor: Colors.grey.shade300,
-                          child: Padding(
-                            padding: const EdgeInsets.all(8.0),
-                            child: Icon(
-                              Icons.search_outlined,
-                              color: Colors.black45,
-                            ),
-                          ))),
-                ],
-              ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                const Text(
+                  'Available Products',
+                  style: TextStyle(
+                      fontSize: 25.0,
+                      fontWeight: FontWeight.bold,
+                      fontFamily: AutofillHints.countryName),
+                ),
+                Container(
+                    decoration: BoxDecoration(
+                      border:
+                          Border.all(width: 2, color: Colors.grey.shade300),
+                      borderRadius: BorderRadius.circular(5),
+                    ),
+                    child: InkWell(
+                        onTap: () {
+                          Navigator.pushNamed(context, '/search');
+                          // Navigator.push(
+                          //     context,
+                          //     MaterialPageRoute(
+                          //         builder: (context) => Searchpage()));
+                        },
+                        splashColor: Colors.grey.shade300,
+                        child: const Padding(
+                          padding: EdgeInsets.all(8.0),
+                          child: Icon(
+                            Icons.search_outlined,
+                            color: Colors.black45,
+                          ),
+                        ))),
+              ],
             ),
-            SizedBox(
+            const SizedBox(
               height: 10,
             ),
             Expanded(
@@ -132,11 +129,7 @@ class HomePage extends StatelessWidget {
                                 image: Shoes[index].image,
                                 price: Shoes[index].price,
                                 size: Shoes[index].size))
-                        // Navigator.push(
-                        //     context,
-                        //     MaterialPageRoute(
-                        //         builder: (context) =>
-                        //             Detailspage(shoes: Shoes[index])))
+                       
                       },
                       splashColor: Colors.indigoAccent.shade400,
                       child: Column(
@@ -146,7 +139,7 @@ class HomePage extends StatelessWidget {
                                   widthFactor: 1.0,
                                   heightFactor: 0.95,
                                   child: ClipRRect(
-                                    borderRadius: BorderRadius.only(
+                                    borderRadius: const BorderRadius.only(
                                         topRight: Radius.circular(20),
                                         topLeft: Radius.circular(20)),
                                     child: Image.asset(
@@ -154,7 +147,7 @@ class HomePage extends StatelessWidget {
                                       fit: BoxFit.cover,
                                     ),
                                   ))),
-                          SizedBox(
+                          const SizedBox(
                             height: 10.0,
                           ),
                           Padding(
@@ -164,13 +157,13 @@ class HomePage extends StatelessWidget {
                               children: [
                                 Text(
                                   Shoes[index].name,
-                                  style: TextStyle(
+                                  style: const TextStyle(
                                       fontSize: 20.0,
                                       fontWeight: FontWeight.bold),
                                 ),
                                 Text(
                                   '\$${Shoes[index].price}',
-                                  style: TextStyle(
+                                  style: const TextStyle(
                                       fontSize: 15.0,
                                       fontWeight: FontWeight.bold),
                                 )
@@ -183,7 +176,7 @@ class HomePage extends StatelessWidget {
                             child: Row(
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
-                                Text(
+                                const Text(
                                   "Men's shoe",
                                   style: TextStyle(
                                       fontSize: 10.0, color: Colors.black45),
@@ -194,7 +187,7 @@ class HomePage extends StatelessWidget {
                                       Icons.star,
                                       color: Colors.yellow[700],
                                     ),
-                                    Text(
+                                    const Text(
                                       '(4.0)',
                                       style: TextStyle(
                                           fontSize: 10.0,
@@ -220,7 +213,7 @@ class HomePage extends StatelessWidget {
           Navigator.pushNamed(context, '/add');
         },
         backgroundColor: Colors.indigoAccent.shade400,
-        child: Icon(
+        child: const Icon(
           Icons.add,
           color: Colors.white,
         ),
