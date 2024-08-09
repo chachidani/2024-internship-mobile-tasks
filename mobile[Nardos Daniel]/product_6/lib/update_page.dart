@@ -201,40 +201,36 @@ class _UpDateState extends State<UpDate> {
           name: nameController.text,
           image: Shoes[ind].image,
           price: double.parse(priceController.text),
-          size: Shoes[ind].size); 
-    ScaffoldMessenger.of(context).showSnackBar(
-      SnackBar(
-          content: Column(
-        children: [
-          Text('Updated Successfully'),
-          TextButton(
-              onPressed: () => {Navigator.of(context).pushNamed("/")},
-              child: Text("Go to home page"))
-        ],
-      )),
-    );
-
-    _formKey.currentState!.reset();
-    nameController.clear();
-    priceController.clear();
-    catagoryController.clear();
-    descriptionController.clear();
-    }else{
+          size: Shoes[ind].size);
       ScaffoldMessenger.of(context).showSnackBar(
-      SnackBar(
-          content: Column(
-        children: [
-          Text('Failed to update'),
-          TextButton(
-              onPressed: () => {Navigator.of(context).pushNamed("/")},
-              child: Text("Go to home page"))
-        ],
-      )),
-    );
+        SnackBar(
+            content: Column(
+          children: [
+            Text('Updated Successfully'),
+            TextButton(
+                onPressed: () => {Navigator.of(context).pushNamed("/")},
+                child: Text("Go to home page"))
+          ],
+        )),
+      );
+
+      _formKey.currentState!.reset();
+      nameController.clear();
+      priceController.clear();
+      catagoryController.clear();
+      descriptionController.clear();
+    } else {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+            content: Column(
+          children: [
+            Text('Failed to update'),
+            TextButton(
+                onPressed: () => {Navigator.of(context).pushNamed("/")},
+                child: Text("Go to home page"))
+          ],
+        )),
+      );
     }
-
-    
-
-   
   }
 }

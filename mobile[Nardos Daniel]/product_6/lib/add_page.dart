@@ -1,6 +1,9 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
-import 'package:product_6/data.dart';
-import 'package:product_6/shoe.dart';
+import 'package:image_picker/image_picker.dart';
+import 'data.dart';
+import 'shoe.dart';
 
 class ADDPage extends StatefulWidget {
   const ADDPage({super.key});
@@ -16,6 +19,16 @@ class _UpDateState extends State<ADDPage> {
   final TextEditingController catagoryController = TextEditingController();
   final TextEditingController descriptionController = TextEditingController();
   final TextEditingController priceController = TextEditingController();
+  File? _image;
+  final ImagePicker _imagePicker = ImagePicker();
+
+  Future<void> _getImage() async {
+    final XFile? pickedimage =
+        await _imagePicker.pickImage(source: ImageSource.gallery);
+    setState(() {
+      if (pickedimage != null) _image = File(pickedimage.path);
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -40,40 +53,48 @@ class _UpDateState extends State<ADDPage> {
             mainAxisAlignment: MainAxisAlignment.start,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Container(
-                height: 200,
-                width: double.infinity,
-                child: Center(
-                  child: Card(
-                    color: Color.fromARGB(169, 248, 244, 244),
-                    child: Center(
-                      child: Container(
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Icon(
-                              Icons.image_outlined,
-                              size: 40,
+              GestureDetector(
+                onTap: () => {_getImage()},
+                child: Container(
+                  height: 200,
+                  width: double.infinity,
+                  child: _image != null
+                      ? Image.file(
+                          File(_image!.path),
+                          fit: BoxFit.cover,
+                        )
+                      : Center(
+                          child: Card(
+                            color: const Color.fromARGB(169, 248, 244, 244),
+                            child: Center(
+                              child: Container(
+                                child: const Column(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    Icon(
+                                      Icons.image_outlined,
+                                      size: 40,
+                                    ),
+                                    SizedBox(
+                                      height: 10.0,
+                                    ),
+                                    Text('upload image')
+                                  ],
+                                ),
+                              ),
                             ),
-                            SizedBox(
-                              height: 10.0,
-                            ),
-                            Text('upload image')
-                          ],
+                          ),
                         ),
-                      ),
-                    ),
-                  ),
                 ),
               ),
-              SizedBox(
+              const SizedBox(
                 height: 20.0,
               ),
-              Text(
+              const Text(
                 'name',
                 textAlign: TextAlign.start,
               ),
-              SizedBox(
+              const SizedBox(
                 height: 10.0,
               ),
               TextField(
@@ -83,17 +104,17 @@ class _UpDateState extends State<ADDPage> {
                       borderSide: BorderSide.none,
                       borderRadius: BorderRadius.circular(10)),
                   filled: true,
-                  fillColor: Color.fromARGB(169, 216, 213, 213),
+                  fillColor: const Color.fromARGB(169, 216, 213, 213),
                 ),
               ),
-              SizedBox(
+              const SizedBox(
                 height: 10.0,
               ),
-              Text(
+              const Text(
                 'category',
                 textAlign: TextAlign.start,
               ),
-              SizedBox(
+              const SizedBox(
                 height: 10.0,
               ),
               TextField(
@@ -103,17 +124,17 @@ class _UpDateState extends State<ADDPage> {
                       borderSide: BorderSide.none,
                       borderRadius: BorderRadius.circular(10)),
                   filled: true,
-                  fillColor: Color.fromARGB(169, 216, 213, 213),
+                  fillColor: const Color.fromARGB(169, 216, 213, 213),
                 ),
               ),
-              SizedBox(
+              const SizedBox(
                 height: 10.0,
               ),
-              Text(
+              const Text(
                 'price',
                 textAlign: TextAlign.start,
               ),
-              SizedBox(
+              const SizedBox(
                 height: 10.0,
               ),
               TextField(
@@ -123,17 +144,17 @@ class _UpDateState extends State<ADDPage> {
                       borderSide: BorderSide.none,
                       borderRadius: BorderRadius.circular(10)),
                   filled: true,
-                  fillColor: Color.fromARGB(169, 216, 213, 213),
+                  fillColor: const Color.fromARGB(169, 216, 213, 213),
                 ),
               ),
-              SizedBox(
+              const SizedBox(
                 height: 10.0,
               ),
-              Text(
+              const Text(
                 'description',
                 textAlign: TextAlign.start,
               ),
-              SizedBox(
+              const SizedBox(
                 height: 10.0,
               ),
               TextField(
@@ -144,43 +165,43 @@ class _UpDateState extends State<ADDPage> {
                       borderSide: BorderSide.none,
                       borderRadius: BorderRadius.circular(10)),
                   filled: true,
-                  fillColor: Color.fromARGB(169, 216, 213, 213),
+                  fillColor: const Color.fromARGB(169, 216, 213, 213),
                 ),
               ),
-              SizedBox(
+              const SizedBox(
                 height: 20.0,
               ),
               OutlinedButton(
                   style: OutlinedButton.styleFrom(
                       backgroundColor: Colors.indigoAccent.shade400,
                       foregroundColor: Colors.white,
-                      fixedSize: Size(double.maxFinite, 50),
-                      padding: EdgeInsets.symmetric(
+                      fixedSize: const Size(double.maxFinite, 50),
+                      padding: const EdgeInsets.symmetric(
                           horizontal: 50.0, vertical: 15.0),
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(8),
                       )),
                   onPressed: () => {_add()},
-                  child: Text('ADD',
+                  child: const Text('ADD',
                       style: TextStyle(fontWeight: FontWeight.bold))),
-              SizedBox(
+              const SizedBox(
                 height: 20.0,
               ),
               OutlinedButton(
                 onPressed: () {},
                 style: OutlinedButton.styleFrom(
-                    foregroundColor: Color.fromARGB(230, 255, 19, 19),
-                    fixedSize: Size(double.maxFinite, 50),
+                    foregroundColor: const Color.fromARGB(230, 255, 19, 19),
+                    fixedSize: const Size(double.maxFinite, 50),
                     padding:
-                        EdgeInsets.symmetric(horizontal: 50.0, vertical: 15.0),
-                    side: BorderSide(
+                        const EdgeInsets.symmetric(horizontal: 50.0, vertical: 15.0),
+                    side: const BorderSide(
                       color: Color.fromARGB(230, 255, 19, 19),
                       width: 1.0,
                     ),
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(8),
                     )),
-                child: Text("DELETE",
+                child: const Text("DELETE",
                     style: TextStyle(fontWeight: FontWeight.bold)),
               ),
             ],
@@ -190,8 +211,6 @@ class _UpDateState extends State<ADDPage> {
     );
   }
 
-  
-
   void _add() {
     final String name = nameController.text;
     final String catagory = catagoryController.text;
@@ -200,14 +219,17 @@ class _UpDateState extends State<ADDPage> {
 
     Shoes.add(Shoe(
         name: name,
-        image: 'assets/img6.jpg',
+        image: _image!.path,
         price: double.parse(price),
         size: '40'));
     ScaffoldMessenger.of(context).showSnackBar(
-      SnackBar(content: Column(
+      SnackBar(
+          content: Column(
         children: [
-          Text('Added Successfully'),
-          TextButton(onPressed: ()=>{Navigator.of(context).pushNamed("/")}, child: Text("Go to home page"))
+          const Text('Added Successfully'),
+          TextButton(
+              onPressed: () => {Navigator.of(context).pushNamed("/")},
+              child: const Text("Go to home page"))
         ],
       )),
     );

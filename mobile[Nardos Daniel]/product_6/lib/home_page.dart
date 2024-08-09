@@ -1,6 +1,8 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
-import 'package:product_6/DetailsPage.dart';
-import 'package:product_6/SearchPage.dart';
+import 'package:product_6/details_page.dart';
+import 'package:product_6/search_page.dart';
 import 'package:product_6/data.dart';
 import 'package:product_6/shoe.dart';
 
@@ -122,6 +124,7 @@ class HomePage extends StatelessWidget {
                 ),
                 itemCount: Shoes.length,
                 itemBuilder: (BuildContext context, int index) {
+                  bool isFile = File(Shoes[index].image).existsSync();
                   return Card(
                     clipBehavior: Clip.hardEdge,
                     child: InkWell(
@@ -149,10 +152,15 @@ class HomePage extends StatelessWidget {
                                     borderRadius: BorderRadius.only(
                                         topRight: Radius.circular(20),
                                         topLeft: Radius.circular(20)),
-                                    child: Image.asset(
-                                      Shoes[index].image,
-                                      fit: BoxFit.cover,
-                                    ),
+                                    child: isFile
+                                        ? Image.file(
+                                            File(Shoes[index].image),
+                                            fit: BoxFit.cover,
+                                          )
+                                        : Image.asset(
+                                            Shoes[index].image,
+                                            fit: BoxFit.cover,
+                                          ),
                                   ))),
                           SizedBox(
                             height: 10.0,
