@@ -1,29 +1,29 @@
-Flutter E-commerce App
+# Flutter E-commerce App
 
 
 This Flutter-based e-commerce app is built using Clean Architecture for scalability, maintainability, and testability, with a clear separation of concerns across layers.
 
 
-Project Overview
+## Project Overview
 
 A robust Flutter e-commerce application that adheres to Clean Architecture principles, ensuring a well-structured and maintainable codebase.
 
-Architecture
+## Architecture
 
 The app is divided into three key layers:
 
-Domain Layer: 
+### Domain Layer: 
 Core business logic, entities, and use cases.
 
-Data Layer: 
+### Data Layer: 
 Handles data from remote APIs and local sources.
 
-Presentation Layer: 
+### Presentation Layer: 
 UI components and state management.
 
-Installation
+## Installation
 
-Clone the repository:
+### Clone the repository:
 
 git clone https://github.com/chachidani/2024-internship-mobile-tasks/tree/main/mobile%5BNardos%20Daniel%5D/product_8
 
@@ -39,7 +39,7 @@ Run the app:
 
 ```flutter run```
 
-Contributing
+## Contributing
 
 Contributions are welcome! Follow the GitFlow process:
 
