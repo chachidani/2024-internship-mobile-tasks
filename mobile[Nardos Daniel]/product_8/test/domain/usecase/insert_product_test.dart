@@ -1,6 +1,7 @@
 import 'package:dartz/dartz.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/mockito.dart';
+import 'package:product_8/core/failure/failure.dart';
 import 'package:product_8/features/product/domain/entities/product_entity.dart';
 import 'package:product_8/features/product/domain/use_case/insert_product_usecase.dart';
 
@@ -28,6 +29,16 @@ void main(){
     final result = await insertProductUsecase.call(testProductDetails);
     //assert
     expect(result, const Right(testProductDetails));
+  });
+
+  test('should return a failure when the product insertion fails', () async {
+    //arrange
+    when(mockProductRepositories.createProduct(testProductDetails))
+        .thenAnswer((_) async =>  Left(ServerFailure(message: 'server failure')));
+    //act
+    final result = await insertProductUsecase.call(testProductDetails);
+    //assert
+    expect(result,  Left(ServerFailure(message: 'server failure')));
   });
   
 }
