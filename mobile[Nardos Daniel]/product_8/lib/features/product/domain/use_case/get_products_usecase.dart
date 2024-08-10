@@ -1,15 +1,16 @@
 import 'package:dartz/dartz.dart';
 
 import '../../../../core/failure/failure.dart';
-import '../../../../core/shoe.dart';
+
+import '../entities/product_entity.dart';
 import '../repositories/product_repository.dart';
 
-class ListProductUsecase {
+class GetProductsUsecase {
   final ProductRepositories productRepository;
 
-  ListProductUsecase({required this.productRepository});
+  GetProductsUsecase({required this.productRepository});
 
-  Future<Either<Failure, List<Shoe>>> call() async {
+  Future<Either<Failure, List<Product>>> call() async {
     return await productRepository.getProducts();
   }
 }

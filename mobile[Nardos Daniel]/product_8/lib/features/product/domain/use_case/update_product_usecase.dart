@@ -1,7 +1,8 @@
 import 'package:dartz/dartz.dart';
 
 import '../../../../core/failure/failure.dart';
-import '../../../../core/shoe.dart';
+
+import '../entities/product_entity.dart';
 import '../repositories/product_repository.dart';
 
 class UpdateProductUsecase {
@@ -9,7 +10,7 @@ class UpdateProductUsecase {
 
   UpdateProductUsecase({required this.productRepository});
 
-  Future<Either<Failure , Shoe>> call(Shoe product) async {
+  Future<Either<Failure , Product>> call(Product product) async {
     return await productRepository.updateProduct(product);
   }
 }

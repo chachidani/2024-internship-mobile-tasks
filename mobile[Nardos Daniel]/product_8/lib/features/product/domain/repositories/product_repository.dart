@@ -1,11 +1,12 @@
 import 'package:dartz/dartz.dart';
 import '../../../../core/failure/failure.dart';
-import '../../../../core/shoe.dart';
+
+import '../entities/product_entity.dart';
 
 abstract class ProductRepositories {
-  Future<Either<Failure, List<Shoe>>> getProducts();
-  Future<Either <Failure , Shoe>> getProduct(String id);
-  Future<Either <Failure , Shoe>> createProduct(Shoe product);
-  Future<Either <Failure , Shoe>> updateProduct(Shoe product);
+  Future<Either<Failure, List<Product>>> getProducts();
+  Future<Either <Failure , Product>> getProduct(String id);
+  Future<Either <Failure , Product>> createProduct(Product product);
+  Future<Either <Failure , Product>> updateProduct(Product product);
   Future<Either<Failure , void>> deleteProduct(String id);
 }
