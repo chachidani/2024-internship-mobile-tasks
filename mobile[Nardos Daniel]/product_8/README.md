@@ -29,7 +29,7 @@ git clone https://github.com/chachidani/2024-internship-mobile-tasks/tree/main/m
 
 Navigate to the project directory:
 
-```cd yourprojectname```
+```cd '.\mobile`[Nardos Daniel`]\' \ product_8 ```
 
 Install dependencies:
 
