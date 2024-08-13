@@ -62,4 +62,8 @@ class ProductModel extends Product {
       imageUrl: product.imageUrl,
     );
   }
+
+  static List<ProductModel> fromJsonList(List<dynamic> jsonList) {
+    return jsonList.map((json) => ProductModel.fromJson(json)).toList();
+  }
 }
