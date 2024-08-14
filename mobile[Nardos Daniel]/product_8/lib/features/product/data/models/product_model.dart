@@ -21,7 +21,7 @@ class ProductModel extends Product {
         id: json['id'],
         name: json['name'],
         description: json['description'],
-        price: json['price'],
+        price: (json['price'] as num).toDouble(),
         imageUrl: json['imageUrl'],
       );
     } catch (e) {
@@ -65,5 +65,9 @@ class ProductModel extends Product {
 
   static List<ProductModel> fromJsonList(List<dynamic> jsonList) {
     return jsonList.map((json) => ProductModel.fromJson(json)).toList();
+  }
+
+  static List<Map<String, dynamic>> toJsonList(List<ProductModel> productModels) {
+    return productModels.map((productModel) => productModel.toJson()).toList();
   }
 }
