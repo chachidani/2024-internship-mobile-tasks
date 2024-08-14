@@ -6,6 +6,11 @@ import 'package:product_8/features/product/data/data_source/local_data_source/pr
 import 'package:product_8/features/product/data/data_source/remote_data_source/product_remote_data_source.dart';
 
 import 'package:product_8/features/product/domain/repositories/product_repository.dart';
+import 'package:product_8/features/product/domain/use_case/delete_product_usecase.dart';
+import 'package:product_8/features/product/domain/use_case/get_product_by_id_usecase.dart';
+import 'package:product_8/features/product/domain/use_case/get_products_usecase.dart';
+import 'package:product_8/features/product/domain/use_case/insert_product_usecase.dart';
+import 'package:product_8/features/product/domain/use_case/update_product_usecase.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 @GenerateMocks([
@@ -14,7 +19,12 @@ import 'package:shared_preferences/shared_preferences.dart';
   ProductLocalDataSource,
   NetworkInfo,
   InternetConnectionChecker,
-  SharedPreferences
+  SharedPreferences , 
+  InsertProductUsecase,
+  GetProductsUsecase,
+  GetProductByIdUsecase,
+  DeleteProductUsecase,
+  UpdateProductUsecase
 ], customMocks: [
   MockSpec<http.Client>(as: #MockHttpClient)
 ])

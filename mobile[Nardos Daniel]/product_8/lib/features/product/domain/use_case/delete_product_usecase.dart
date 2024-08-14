@@ -4,20 +4,20 @@ import '../../../../core/failure/failure.dart';
 import '../../../../core/usecase/usecase.dart';
 import '../repositories/product_repository.dart';
 
-class DeleteProductUsecase implements UseCase<void, Params> {
+class DeleteProductUsecase implements UseCase<void, DeleteParams> {
   final ProductRepositories productRepository;
 
   DeleteProductUsecase({required this.productRepository});
 
    @override
-     Future<Either<Failure , void>> call(Params params) async {
+     Future<Either<Failure , void>> call(DeleteParams params) async {
     return await productRepository.deleteProduct(params.id);
   }
 }
-class Params {
+class DeleteParams {
   final String id;
 
-  Params({required this.id});
+  DeleteParams({required this.id});
   
   List<Object?> get props => [id];
 }

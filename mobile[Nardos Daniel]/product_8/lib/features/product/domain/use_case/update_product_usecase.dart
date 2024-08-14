@@ -6,20 +6,20 @@ import '../../../../core/usecase/usecase.dart';
 import '../entities/product_entity.dart';
 import '../repositories/product_repository.dart';
 
-class UpdateProductUsecase implements UseCase<Product, Params> { 
+class UpdateProductUsecase implements UseCase<Product, UpdateParams> { 
   final ProductRepositories productRepository;
 
   UpdateProductUsecase({required this.productRepository});
 
   @override
-  Future<Either<Failure , Product>> call(Params params) async {
+  Future<Either<Failure , Product>> call(UpdateParams params) async {
     return await productRepository.updateProduct(params.product);
   }
 }
-class Params {
+class UpdateParams {
   final Product product;
 
-  Params({required this.product});
+  UpdateParams({required this.product});
   
   List<Object?> get props => [product];
 }

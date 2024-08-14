@@ -25,7 +25,7 @@ void main(){
     when(mockProductRepositories.updateProduct(testProductDetails))
         .thenAnswer((_) async => const Right(testProductDetails));
     //act
-    final result = await updateProductUsecase.call(Params(product: testProductDetails));
+    final result = await updateProductUsecase.call(UpdateParams(product: testProductDetails));
     //assert
     expect(result, const Right(testProductDetails));
   });
@@ -35,7 +35,7 @@ void main(){
     when(mockProductRepositories.updateProduct(testProductDetails))
         .thenAnswer((_) async =>  const Left(ServerFailure(message: 'server failure')));
     //act
-    final result = await updateProductUsecase.call(Params(product: testProductDetails));
+    final result = await updateProductUsecase.call(UpdateParams(product: testProductDetails));
     //assert
     expect(result,  const Left(ServerFailure(message: 'server failure')));
   });
