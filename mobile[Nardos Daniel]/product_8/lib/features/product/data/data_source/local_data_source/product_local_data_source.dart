@@ -10,6 +10,7 @@ abstract class ProductLocalDataSource {
   Future<void> cacheProducts(List<ProductModel> productToCache);
 }
 
+// ignore: constant_identifier_names
 const CACHED_PRODUCTS = 'CACHED_PRODUCTS';
 
 class ProductLocalDataSourceImpl extends ProductLocalDataSource {

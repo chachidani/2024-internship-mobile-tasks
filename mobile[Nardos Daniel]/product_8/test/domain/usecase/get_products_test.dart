@@ -2,6 +2,7 @@ import 'package:dartz/dartz.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/mockito.dart';
 import 'package:product_8/core/failure/failure.dart';
+import 'package:product_8/core/usecase/usecase.dart';
 import 'package:product_8/features/product/domain/entities/product_entity.dart';
 import 'package:product_8/features/product/domain/use_case/get_products_usecase.dart';
 
@@ -28,7 +29,7 @@ void main() {
     when(mockProductRepositories.getProducts())
         .thenAnswer((_) async => const Right(testProductDetails));
     //act
-    final result = await getProductsUsecase.call();
+    final result = await getProductsUsecase.call(NoParams());
     //assert
     expect(result, const Right(testProductDetails));
   });
@@ -36,10 +37,10 @@ void main() {
   test('should return a failure when the product fetching fails', () async {
     //arrange
     when(mockProductRepositories.getProducts()).thenAnswer(
-        (_) async => Left(ServerFailure(message: 'server failure')));
+        (_) async => const Left(ServerFailure(message: 'server failure')));
     //act
-    final result = await getProductsUsecase.call();
+    final result = await getProductsUsecase.call(NoParams());
     //assert
-    expect(result, Left(ServerFailure(message: 'server failure')));
+    expect(result, const Left(ServerFailure(message: 'server failure')));
   });
 }

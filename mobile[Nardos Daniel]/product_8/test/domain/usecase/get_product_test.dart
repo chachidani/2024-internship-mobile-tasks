@@ -28,7 +28,7 @@ void main() {
       when(mockProductRepositories.getProduct(testProductId))
           .thenAnswer((_) async => const Right(testProductDetails));
       //act
-      final result = await getProductByIdUsecase.call(testProductId);
+      final result = await getProductByIdUsecase.call(const GetParams(id: testProductId));
       //assert
       expect(result, const Right(testProductDetails));
       
@@ -36,10 +36,10 @@ void main() {
     test('should return a failure when the product fetching fails', () async {
       //arrange
       when(mockProductRepositories.getProduct(testProductId)).thenAnswer(
-          (_) async => Left(ServerFailure(message: 'server failure')));
+          (_) async => const Left(ServerFailure(message: 'server failure')));
       //act
-      final result = await getProductByIdUsecase.call(testProductId);
+      final result = await getProductByIdUsecase.call(const GetParams(id: testProductId));
       //assert
-      expect(result, Left(ServerFailure(message: 'server failure')));
+      expect(result, const Left(ServerFailure(message: 'server failure')));
     });
 }

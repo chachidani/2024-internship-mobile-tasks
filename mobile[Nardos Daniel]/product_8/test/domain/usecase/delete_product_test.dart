@@ -20,7 +20,7 @@ void main(){
       when(mockProductRepositories.deleteProduct(testProductId))
           .thenAnswer((_) async => const Right(null));
       //act
-      final result = await deleteProductUsecase.call(testProductId);
+      final result = await deleteProductUsecase.call(Params(id: testProductId));
       //assert
       expect(result, const Right(null));
       
@@ -29,10 +29,10 @@ void main(){
     test('should return a failure when the product deletion fails', () async {
       //arrange
       when(mockProductRepositories.deleteProduct(testProductId)).thenAnswer(
-          (_) async => Left(ServerFailure(message: 'server failure')));
+          (_) async => const Left(ServerFailure(message: 'server failure')));
       //act
-      final result = await deleteProductUsecase.call(testProductId);
+      final result = await deleteProductUsecase.call(Params(id: testProductId));
       //assert
-      expect(result, Left(ServerFailure(message: 'server failure')));
+      expect(result, const Left(ServerFailure(message: 'server failure')));
     });
 }

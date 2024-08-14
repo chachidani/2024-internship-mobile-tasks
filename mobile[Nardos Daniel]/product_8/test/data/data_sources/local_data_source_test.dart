@@ -23,6 +23,7 @@ void main() {
   });
 
   group('cacheProducts', () {
+    // ignore: constant_identifier_names
     const CACHED_PRODUCTS = 'CACHED_PRODUCTS';
     const testProductModelList = [
       ProductModel(
@@ -51,6 +52,7 @@ void main() {
 
   group('getProducts', () {
     
+    // ignore: constant_identifier_names
     const CACHED_PRODUCTS = 'CACHED_PRODUCTS';
     final jsonList = json.decode(readJson('helpers/dummy_data/dummy_products_cached.json'));
     final testProductModelList = ProductModel.fromJsonList(jsonList);
