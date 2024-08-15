@@ -1,4 +1,5 @@
 import 'package:dartz/dartz.dart';
+import 'package:equatable/equatable.dart';
 
 import '../../../../core/failure/failure.dart';
 
@@ -16,10 +17,10 @@ class UpdateProductUsecase implements UseCase<Product, UpdateParams> {
     return await productRepository.updateProduct(params.product);
   }
 }
-class UpdateParams {
+class UpdateParams extends Equatable {
   final Product product;
 
-  UpdateParams({required this.product});
+  const UpdateParams({required this.product});
   
   List<Object?> get props => [product];
 }

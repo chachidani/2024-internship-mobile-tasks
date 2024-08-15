@@ -1,4 +1,5 @@
 import 'package:dartz/dartz.dart';
+import 'package:equatable/equatable.dart';
 
 import '../../../../core/failure/failure.dart';
 
@@ -17,7 +18,7 @@ class GetProductByIdUsecase implements UseCase<Product, GetParams> {
   }
 }
 
-class GetParams {
+class GetParams extends Equatable {
   final String id;
 
   const GetParams({required this.id});

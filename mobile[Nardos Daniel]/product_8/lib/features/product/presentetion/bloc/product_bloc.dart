@@ -34,7 +34,7 @@ class ProductBloc extends Bloc<ProductEvent, ProductState> {
 
     on<GetProductByIdEvent>((event, emit) async {
       emit(ProductLoading());
-      final result = await getProductByIdUsecase.call(GetParams(id: event.id));
+      final result = await getProductByIdUsecase(GetParams(id: event.id));
       result.fold(
         (failure) => emit(ProductError()),
         (product) => emit(ProductLoadedSingle(product: product)),

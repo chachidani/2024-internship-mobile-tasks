@@ -1,4 +1,5 @@
 import 'package:dartz/dartz.dart';
+import 'package:equatable/equatable.dart';
 
 import '../../../../core/failure/failure.dart';
 import '../../../../core/usecase/usecase.dart';
@@ -14,10 +15,10 @@ class DeleteProductUsecase implements UseCase<void, DeleteParams> {
     return await productRepository.deleteProduct(params.id);
   }
 }
-class DeleteParams {
+class DeleteParams extends Equatable {
   final String id;
 
-  DeleteParams({required this.id});
+  const DeleteParams({required this.id});
   
   List<Object?> get props => [id];
 }

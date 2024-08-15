@@ -15,7 +15,7 @@ import 'package:mockito/mockito.dart' as _i1;
 import 'package:mockito/src/dummies.dart' as _i21;
 import 'package:product_8/core/failure/failure.dart' as _i8;
 import 'package:product_8/core/platform/network_info.dart' as _i12;
-import 'package:product_8/core/usecase/usecase.dart' as _i16;
+import 'package:product_8/core/usecase/usecase.dart' as _i14;
 import 'package:product_8/features/product/data/data_source/local_data_source/product_local_data_source.dart'
     as _i11;
 import 'package:product_8/features/product/data/data_source/remote_data_source/product_remote_data_source.dart'
@@ -31,9 +31,9 @@ import 'package:product_8/features/product/domain/use_case/delete_product_usecas
 import 'package:product_8/features/product/domain/use_case/get_product_by_id_usecase.dart'
     as _i17;
 import 'package:product_8/features/product/domain/use_case/get_products_usecase.dart'
-    as _i15;
+    as _i16;
 import 'package:product_8/features/product/domain/use_case/insert_product_usecase.dart'
-    as _i14;
+    as _i15;
 import 'package:product_8/features/product/domain/use_case/update_product_usecase.dart'
     as _i19;
 import 'package:shared_preferences/shared_preferences.dart' as _i13;
@@ -621,11 +621,38 @@ class MockSharedPreferences extends _i1.Mock implements _i13.SharedPreferences {
       ) as _i7.Future<void>);
 }
 
+/// A class which mocks [UseCase].
+///
+/// See the documentation for Mockito's code generation for more information.
+class MockUseCase<Type, Params> extends _i1.Mock
+    implements _i14.UseCase<Type, Params> {
+  MockUseCase() {
+    _i1.throwOnMissingStub(this);
+  }
+
+  @override
+  _i7.Future<_i2.Either<_i8.Failure, Type>> call(Params? params) =>
+      (super.noSuchMethod(
+        Invocation.method(
+          #call,
+          [params],
+        ),
+        returnValue: _i7.Future<_i2.Either<_i8.Failure, Type>>.value(
+            _FakeEither_0<_i8.Failure, Type>(
+          this,
+          Invocation.method(
+            #call,
+            [params],
+          ),
+        )),
+      ) as _i7.Future<_i2.Either<_i8.Failure, Type>>);
+}
+
 /// A class which mocks [InsertProductUsecase].
 ///
 /// See the documentation for Mockito's code generation for more information.
 class MockInsertProductUsecase extends _i1.Mock
-    implements _i14.InsertProductUsecase {
+    implements _i15.InsertProductUsecase {
   MockInsertProductUsecase() {
     _i1.throwOnMissingStub(this);
   }
@@ -641,7 +668,7 @@ class MockInsertProductUsecase extends _i1.Mock
 
   @override
   _i7.Future<_i2.Either<_i8.Failure, _i9.Product>> call(
-          _i14.CreateParams? params) =>
+          _i15.CreateParams? params) =>
       (super.noSuchMethod(
         Invocation.method(
           #call,
@@ -662,7 +689,7 @@ class MockInsertProductUsecase extends _i1.Mock
 ///
 /// See the documentation for Mockito's code generation for more information.
 class MockGetProductsUsecase extends _i1.Mock
-    implements _i15.GetProductsUsecase {
+    implements _i16.GetProductsUsecase {
   MockGetProductsUsecase() {
     _i1.throwOnMissingStub(this);
   }
@@ -678,7 +705,7 @@ class MockGetProductsUsecase extends _i1.Mock
 
   @override
   _i7.Future<_i2.Either<_i8.Failure, List<_i9.Product>>> call(
-          _i16.NoParams? params) =>
+          _i14.NoParams? params) =>
       (super.noSuchMethod(
         Invocation.method(
           #call,

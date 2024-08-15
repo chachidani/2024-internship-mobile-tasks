@@ -14,7 +14,6 @@ import 'package:product_8/features/product/presentetion/bloc/product_event.dart'
 import 'package:product_8/features/product/presentetion/bloc/product_state.dart';
 
 import '../../helpers/test_helper.mocks.dart';
-
 void main() {
   late MockGetProductByIdUsecase mockGetProductByIdUsecase;
   late MockGetProductsUsecase mockGetProductsUsecase;
@@ -57,10 +56,14 @@ void main() {
   blocTest<ProductBloc, ProductState>(
         'emits [ProductLoading, ProductLoadedSingle] when GetProductbyIdEvent is added.',
         build: () {
-           when(mockGetProductByIdUsecase.call( const GetParams(id: testProductId)))
-              .thenAnswer((_) async =>  const Right(testProductDetails));
-          return productBloc;
          
+
+          return productBloc;}
+         
+        ,
+        setUp: () {
+           when(mockGetProductByIdUsecase( const GetParams(id: testProductId)))
+              .thenAnswer((_) async =>  const Right(testProductDetails));
         },
        
         
@@ -102,7 +105,7 @@ void main() {
           return productBloc;
         },
         act: (bloc) => bloc.add(const CreateProductEvent(product: testProductDetails)),
-        wait: const Duration(milliseconds: 500),
+       
         expect: () => [
               ProductLoading(),
               const ProductLoadedSingle(product: testProductDetails)
@@ -116,7 +119,7 @@ void main() {
           return productBloc;
         },
         act: (bloc) => bloc.add(const CreateProductEvent(product: testProductDetails)),
-        wait: const Duration(milliseconds: 500),
+       
         expect: () => [
               ProductLoading(),
               ProductError()
@@ -147,7 +150,7 @@ void main() {
           return productBloc;
         },
         act: (bloc) => bloc.add(const UpdateProductEvent(product: testProductDetails)),
-        wait: const Duration(milliseconds: 500),
+      
         expect: () => [
               ProductLoading(),
               ProductError()
@@ -164,7 +167,7 @@ void main() {
           return productBloc;
         },
         act: (bloc) => bloc.add(const DeleteProductEvent(id: testProductId)),
-        wait: const Duration(milliseconds: 500),
+       
         expect: () => [
               ProductLoading(),
               ProductDeleteState()
@@ -178,7 +181,7 @@ void main() {
           return productBloc;
         },
         act: (bloc) => bloc.add(const DeleteProductEvent(id: testProductId)),
-        wait: const Duration(milliseconds: 500),
+       
         expect: () => [
               ProductLoading(),
               ProductError()
@@ -194,7 +197,7 @@ void main() {
           return productBloc;
         },
         act: (bloc) => bloc.add(LoadProduct()),
-        wait: const Duration(milliseconds: 500),
+       
         expect: () => [
               ProductLoading(),
               const ProductLoaded(products: [testProductDetails])
@@ -208,7 +211,7 @@ void main() {
           return productBloc;
         },
         act: (bloc) => bloc.add(LoadProduct()),
-        wait: const Duration(milliseconds: 500),
+       
         expect: () => [
               ProductLoading(),
               ProductError()
