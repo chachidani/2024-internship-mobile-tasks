@@ -22,5 +22,6 @@ class CreateParams extends Equatable {
 
   const CreateParams({required this.product});
 
+  @override
   List<Object?> get props => [product];
 }

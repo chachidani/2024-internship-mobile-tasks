@@ -100,7 +100,7 @@ void main() {
     blocTest<ProductBloc, ProductState>(
         'emits [ProductLoading, ProductLoadedSingle] when CreateProductEvent is added.',
         build: () {
-          when(mockInsertProductUsecase.call(CreateParams(product: testProductDetails)))
+          when(mockInsertProductUsecase.call(const CreateParams(product: testProductDetails)))
               .thenAnswer((_) async => const Right(testProductDetails));
           return productBloc;
         },
@@ -114,7 +114,7 @@ void main() {
     blocTest<ProductBloc, ProductState>(
         'emits [ProductLoading, ProductErrorState] when CreateProductEvent is added.',
         build: () {
-          when(mockInsertProductUsecase.call(CreateParams(product: testProductDetails)))
+          when(mockInsertProductUsecase.call(const CreateParams(product: testProductDetails)))
               .thenAnswer((_) async => const Left(ServerFailure(message: 'server failure')));
           return productBloc;
         },
@@ -131,7 +131,7 @@ void main() {
     blocTest<ProductBloc, ProductState>(
         'emits [ProductLoading, ProductLoadedSingle] when UpdateProductEvent is added.',
         build: () {
-          when(mockUpdateProductUsecase.call(UpdateParams(product: testProductDetails)))
+          when(mockUpdateProductUsecase.call(const UpdateParams(product: testProductDetails)))
               .thenAnswer((_) async => const Right(testProductDetails));
           return productBloc;
         },
@@ -145,7 +145,7 @@ void main() {
     blocTest<ProductBloc, ProductState>(
         'emits [ProductLoading, ProductErrorState] when UpdateProductEvent is added.',
         build: () {
-          when(mockUpdateProductUsecase.call(UpdateParams(product: testProductDetails)))
+          when(mockUpdateProductUsecase.call(const UpdateParams(product: testProductDetails)))
               .thenAnswer((_) async => const Left(ServerFailure(message: 'server failure')));
           return productBloc;
         },
@@ -162,8 +162,8 @@ void main() {
     blocTest<ProductBloc, ProductState>(
         'emits [ProductLoading, ProductDeleteState] when DeleteProductEvent is added.',
         build: () {
-          when(mockDeleteProductUsecase.call(DeleteParams(id: testProductId)))
-              .thenAnswer((_) async => const Right(true));
+          when(mockDeleteProductUsecase.call(const DeleteParams(id: testProductId)))
+              .thenAnswer((_) async => const Right(null));
           return productBloc;
         },
         act: (bloc) => bloc.add(const DeleteProductEvent(id: testProductId)),
@@ -176,7 +176,7 @@ void main() {
     blocTest<ProductBloc, ProductState>(
         'emits [ProductLoading, ProductErrorState] when DeleteProductEvent is added.',
         build: () {
-          when(mockDeleteProductUsecase.call(DeleteParams(id: testProductId)))
+          when(mockDeleteProductUsecase.call(const DeleteParams(id: testProductId)))
               .thenAnswer((_) async => const Left(ServerFailure(message: 'server failure')));
           return productBloc;
         },

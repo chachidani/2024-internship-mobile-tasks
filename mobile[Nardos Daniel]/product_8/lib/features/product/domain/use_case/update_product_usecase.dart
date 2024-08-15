@@ -22,5 +22,6 @@ class UpdateParams extends Equatable {
 
   const UpdateParams({required this.product});
   
+  @override
   List<Object?> get props => [product];
 }
