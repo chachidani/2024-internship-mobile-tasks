@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:bloc/bloc.dart';
-void main() {
+import 'injection_container.dart' as di;
+void main() async {
+  await di.init();
   runApp(const MyApp());
 }
 
