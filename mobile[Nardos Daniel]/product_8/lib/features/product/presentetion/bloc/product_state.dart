@@ -49,3 +49,39 @@ class ProductDeleteState extends ProductState {
   
 }
 
+class ProductUpdatedState extends ProductState {
+  final Product product;
+
+  const ProductUpdatedState({required this.product});
+
+  @override
+  List<Object> get props => [product];
+}
+
+class ProductCreatedState extends ProductState {
+  final Product product;
+
+  const ProductCreatedState({required this.product});
+
+  @override
+  List<Object> get props => [product];
+}
+
+class ProductUpdatedErrorState extends ProductState {
+  final String message;
+
+  const ProductUpdatedErrorState({required this.message});
+
+  @override
+  List<Object> get props => [message];
+}
+
+class ProductCreatedErrorState extends ProductState {
+  final String message;
+
+  const ProductCreatedErrorState({required this.message});
+
+  @override
+  List<Object> get props => [message];
+}
+

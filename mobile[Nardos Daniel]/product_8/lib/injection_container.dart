@@ -36,11 +36,11 @@ Future<void> init() async{
 
 
   // Usecases
-  sl.registerLazySingleton(() => GetProductsUsecase);
-  sl.registerLazySingleton(() => GetProductByIdUsecase);
-  sl.registerLazySingleton(() => InsertProductUsecase);
-  sl.registerLazySingleton(() => UpdateProductUsecase);
-  sl.registerLazySingleton(() => DeleteProductUsecase);
+  sl.registerLazySingleton(() => GetProductsUsecase(productRepository: sl()));
+  sl.registerLazySingleton(() => GetProductByIdUsecase(productRepository: sl()));
+  sl.registerLazySingleton(() => InsertProductUsecase (productRepository: sl()));
+  sl.registerLazySingleton(() => UpdateProductUsecase (productRepository: sl()));
+  sl.registerLazySingleton(() => DeleteProductUsecase   (productRepository: sl()));
 
 
 

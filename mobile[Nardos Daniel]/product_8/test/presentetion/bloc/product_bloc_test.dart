@@ -108,7 +108,7 @@ void main() {
        
         expect: () => [
               ProductLoading(),
-              const ProductLoadedSingle(product: testProductDetails)
+              const ProductCreatedState(product: testProductDetails)
             ]);
 
     blocTest<ProductBloc, ProductState>(
@@ -122,7 +122,7 @@ void main() {
        
         expect: () => [
               ProductLoading(),
-              ProductError()
+              const ProductCreatedErrorState(message: 'Error creating product')
             ]);
   });
 
@@ -139,7 +139,7 @@ void main() {
         wait: const Duration(milliseconds: 500),
         expect: () => [
               ProductLoading(),
-              const ProductLoadedSingle(product: testProductDetails)
+              const ProductUpdatedState(product: testProductDetails)
             ]);
 
     blocTest<ProductBloc, ProductState>(
@@ -153,7 +153,7 @@ void main() {
       
         expect: () => [
               ProductLoading(),
-              ProductError()
+              const ProductUpdatedErrorState(message: 'Error updating product')
             ]);
   });
 

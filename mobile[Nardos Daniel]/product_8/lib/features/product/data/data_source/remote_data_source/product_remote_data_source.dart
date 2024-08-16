@@ -1,6 +1,8 @@
 import 'dart:convert';
 import 'dart:io';
-
+import 'dart:ui';
+import 'package:http_parser/http_parser.dart';
+import 'package:flutter/foundation.dart';
 import 'package:http/http.dart' as http;
 
 import '../../../../../core/constants/constants.dart';
@@ -22,15 +24,16 @@ class ProductRemoteDataSourceImpl extends ProductRemoteDataSource {
 
   @override
   Future<List<ProductModel>> getProducts() async {
-   try{
-     final response = await client.get(Uri.parse(Urls.baseUrl));
-     if (response.statusCode == 200) {
-       return ProductModel.fromJsonList(json.decode(response.body)['data']);
-     } else {
-       throw ServerException();
-     }}on SocketException{
-       throw const SocketException('No Internet Connection');
-     }
+    try {
+      final response = await client.get(Uri.parse(Urls.baseUrl));
+      if (response.statusCode == 200) {
+        return ProductModel.fromJsonList(json.decode(response.body)['data']);
+      } else {
+        throw ServerException();
+      }
+    } on SocketException {
+      throw const SocketException('No Internet Connection');
+    }
   }
 
   @override
@@ -49,37 +52,57 @@ class ProductRemoteDataSourceImpl extends ProductRemoteDataSource {
 
   @override
   Future<ProductModel> createProduct(ProductModel product) async {
-    final productJson = {
+    var request = http.MultipartRequest(
+      'POST',
+      Uri.parse(Urls.baseUrl),
+    );
+    request.fields.addAll({
       'name': product.name,
       'description': product.description,
-      'imageUrl': product.imageUrl,
-      'price': product.price
-    };
+      'price': product.price.toString(),
+    });
+
+    if (product.imageUrl.isNotEmpty) {
+      var imageFile = File(product.imageUrl);
+      if (imageFile.existsSync()) {
+        request.files.add(
+          await http.MultipartFile.fromPath('image', product.imageUrl,
+              contentType: MediaType('image', 'jpeg')),
+        );
+      } else {
+        throw ImageException();
+      }
+    }
+
     try {
-      final response = await client.post(
-        Uri.parse(Urls.baseUrl),
-        body: productJson,
-       
-      );
-      if (response.statusCode == 200) {
-        return ProductModel.fromJson(json.decode(response.body)['data']);
+      http.StreamedResponse response = await request.send();
+
+      if (response.statusCode == 201) {
+        final responseJson = await response.stream.bytesToString();
+        return ProductModel.fromJson(json.decode(responseJson)['data']);
       } else {
         throw ServerException();
       }
     } on SocketException {
       throw const SocketException('No Internet Connection');
+    } catch (e) {
+      throw Exception(e.toString());
     }
   }
 
   @override
-  Future<ProductModel> updateProduct(ProductModel product) async{
+  Future<ProductModel> updateProduct(ProductModel product) async {
     final productId = product.id;
+    final jsonBody = jsonEncode({
+      'name': product.name,
+      'description': product.description,
+      'price': product.price,
+    });
     try {
       final response = await client.put(
-        Uri.parse(Urls.getProdutbyId(productId)),
-        body: product.toJson(),
-        
-      );
+          Uri.parse(Urls.getProdutbyId(productId)),
+          body: jsonBody,
+          headers: {'Content-Type': 'application/json'});
       if (response.statusCode == 200) {
         return ProductModel.fromJson(json.decode(response.body)['data']);
       } else {
@@ -96,7 +119,7 @@ class ProductRemoteDataSourceImpl extends ProductRemoteDataSource {
       final response = await client.delete(Uri.parse(Urls.getProdutbyId(id)));
       if (response.statusCode == 200) {
         return;
-      }else{
+      } else {
         throw ServerException();
       }
     } on SocketException {
