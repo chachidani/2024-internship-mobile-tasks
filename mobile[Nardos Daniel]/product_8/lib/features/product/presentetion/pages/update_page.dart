@@ -227,7 +227,7 @@ class _UpDateState extends State<UpDate> {
                                   UpdateProductEvent(
                                     product: Product(
                                       id: widget.product!
-                                          .id, // Retain the original ID
+                                          .id, 
                                       name: nameController.text,
                                       price: double.parse(priceController.text),
                                       description: descriptionController.text,

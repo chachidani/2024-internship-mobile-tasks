@@ -20,7 +20,8 @@ class Detailspage extends StatelessWidget {
           listener: (context, state) {
             if (state is ProductDeleteState) {
               ScaffoldMessenger.of(context).showSnackBar(
-                  const SnackBar(content: Text('deleted successfully ')));
+                  const SnackBar(content: Text('deleted successfully')));
+            
               Navigator.of(context).pushNamed('/');
             } else if (state is ProductError) {
               ScaffoldMessenger.of(context).showSnackBar(
@@ -139,8 +140,9 @@ class Detailspage extends StatelessWidget {
                     const SizedBox(
                       height: 20.0,
                     ),
-                     Text(
-                        product.description,),
+                    Text(
+                      product.description,
+                    ),
                     const SizedBox(
                       height: 20.0,
                     ),
@@ -149,7 +151,7 @@ class Detailspage extends StatelessWidget {
                         return Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
-                             CustomButton(
+                            CustomButton(
                                 backgroundColor: Colors.white,
                                 foregroundColor:
                                     const Color.fromRGBO(255, 19, 19, 0.79),
@@ -172,19 +174,19 @@ class Detailspage extends StatelessWidget {
                                       context.read<ProductBloc>().add(
                                           DeleteProductEvent(id: product.id))
                                     }),
-                           CustomButton(
+                            CustomButton(
                                 backgroundColor: Theme.of(context).primaryColor,
                                 foregroundColor: Colors.white,
                                 borderColor: Theme.of(context).primaryColor,
                                 buttonWidth: 120,
                                 buttonHeight: 45,
                                 child: const Text(
-                                        'UPDATE',
-                                        style: TextStyle(
-                                            fontWeight: FontWeight.w600),
-                                      ),
+                                  'UPDATE',
+                                  style: TextStyle(fontWeight: FontWeight.w600),
+                                ),
                                 onPressed: () {
-                                  Navigator.of(context).pushNamed('/detail/update',
+                                  Navigator.of(context).pushNamed(
+                                      '/detail/update',
                                       arguments: Product(
                                           id: product.id,
                                           imageUrl: product.imageUrl,
@@ -207,7 +209,6 @@ class Detailspage extends StatelessWidget {
         ),
       ),
     );
-    
   }
 }
 

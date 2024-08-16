@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../../../../injection_container.dart';
 import '../bloc/product_bloc.dart';
 import '../bloc/product_event.dart';
 import '../bloc/product_state.dart';
@@ -35,66 +34,67 @@ class SearchPage extends StatelessWidget {
   }
 }
 
-BlocProvider<ProductBloc> homeBuilder(BuildContext context) {
-  return BlocProvider(
-    create: (_) => sl<ProductBloc>()..add(LoadProduct()),
-    child: Column(
-      children: [
-        Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            Container(
-              width: 290,
-              height: 50,
-              decoration: BoxDecoration(
-                  border: Border.all(color: Colors.black45),
-                  borderRadius: BorderRadius.circular(10)),
-              child: Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    const Text(
-                      'Leather',
-                      style: TextStyle(fontSize: 20, color: Colors.black45),
-                    ),
-                    Icon(
-                      Icons.arrow_forward,
-                      color: Colors.indigoAccent.shade400,
-                      weight: 30,
-                    ),
-                  ],
-                ),
-              ),
-            ),
-            GestureDetector(
-              onTap: () => _showBottomSheet(context),
-              child: Container(
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(5),
-                  color: Colors.indigoAccent.shade400,
-                ),
-                child: IconButton(
-                  onPressed: () => _showBottomSheet(context),
-                  icon: const Icon(
-                    Icons.filter_list_rounded,
-                    color: Colors.white,
+Widget homeBuilder(BuildContext context) {
+  context.read<ProductBloc>().add(LoadProduct());
+  return Column(
+    children: [
+      Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          Container(
+            width: 290,
+            height: 50,
+            decoration: BoxDecoration(
+                border: Border.all(color: Colors.black45),
+                borderRadius: BorderRadius.circular(10)),
+            child: Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  const Text(
+                    'Leather',
+                    style: TextStyle(fontSize: 20, color: Colors.black45),
                   ),
+                  Icon(
+                    Icons.arrow_forward,
+                    color: Colors.indigoAccent.shade400,
+                    weight: 30,
+                  ),
+                ],
+              ),
+            ),
+          ),
+          GestureDetector(
+            onTap: () => _showBottomSheet(context),
+            child: Container(
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(5),
+                color: Colors.indigoAccent.shade400,
+              ),
+              child: IconButton(
+                onPressed: () => _showBottomSheet(context),
+                icon: const Icon(
+                  Icons.filter_list_rounded,
+                  color: Colors.white,
                 ),
               ),
             ),
-          ],
-        ),
-        const SizedBox(
-          height: 10,
-        ),
-        BlocBuilder<ProductBloc, ProductState>(builder: (context, state) {
-          // switch (state.runtimeType) {
-          if (state is ProductLoading) {
-            return const Center(child: CircularProgressIndicator());
-          } else if (state is ProductLoaded) {
-            final successState = state;
-            return Expanded(
+          ),
+        ],
+      ),
+      const SizedBox(
+        height: 10,
+      ),
+      BlocBuilder<ProductBloc, ProductState>(builder: (context, state) {
+        // switch (state.runtimeType) {
+        if (state is ProductLoading) {
+          return const Center(child: CircularProgressIndicator());
+        } else if (state is ProductLoaded) {
+          final successState = state;
+          return Expanded(
+            child: RefreshIndicator(
+              onRefresh: () async{ context.read<ProductBloc>().add(LoadProduct()); },
               child: GridView.builder(
                 gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                   crossAxisCount: 1,
@@ -109,13 +109,13 @@ BlocProvider<ProductBloc> homeBuilder(BuildContext context) {
                   );
                 },
               ),
-            );
-          } else {
-            return const Center(child: Text('Error loading products'));
-          }
-        }),
-      ],
-    ),
+            ),
+          );
+        } else {
+          return const Center(child: Text('Error loading products'));
+        }
+      }),
+    ],
   );
 }
 

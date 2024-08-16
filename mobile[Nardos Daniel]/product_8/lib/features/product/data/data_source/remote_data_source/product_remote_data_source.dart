@@ -1,9 +1,8 @@
 import 'dart:convert';
 import 'dart:io';
-import 'dart:ui';
-import 'package:http_parser/http_parser.dart';
-import 'package:flutter/foundation.dart';
+
 import 'package:http/http.dart' as http;
+import 'package:http_parser/http_parser.dart';
 
 import '../../../../../core/constants/constants.dart';
 import '../../../../../core/exception/exception.dart';

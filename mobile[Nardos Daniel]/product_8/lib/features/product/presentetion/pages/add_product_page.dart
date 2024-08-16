@@ -72,7 +72,7 @@ class _ADDPageState extends State<ADDPage> {
           } else if (state is ProductCreatedErrorState) {
             ScaffoldMessenger.of(context)
                 .showSnackBar(SnackBar(content: Text(state.message)));
-          } 
+          }
         },
         child: SingleChildScrollView(
           child: Padding(
@@ -84,37 +84,36 @@ class _ADDPageState extends State<ADDPage> {
                 GestureDetector(
                   onTap: _pickImage,
                   child: Container(
-                      height: 200,
-                      width: double.infinity,
-                      decoration: BoxDecoration(
-                        color: const Color.fromRGBO(243, 243, 243, 1),
-                        borderRadius: BorderRadius.circular(8),
-                        image:
-                            _image != null // Show the picked image if available
-                                ? DecorationImage(
-                                    image: FileImage(_image!),
-                                    fit: BoxFit.cover,
-                                  )
-                                : null,
-                      ),
-                       child: _image == null
-                          ? const Column(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                Icon(
-                                  Icons.image_outlined,
-                                  size: 40,
-                                ),
-                                SizedBox(
-                                  height: 10,
-                                ),
-                                Text('Upload Image')
-                              ],
-                            )
-                          : null,
+                    height: 200,
+                    width: double.infinity,
+                    decoration: BoxDecoration(
+                      color: const Color.fromRGBO(243, 243, 243, 1),
+                      borderRadius: BorderRadius.circular(8),
+                      image:
+                          _image != null // Show the picked image if available
+                              ? DecorationImage(
+                                  image: FileImage(_image!),
+                                  fit: BoxFit.cover,
+                                )
+                              : null,
                     ),
-                      ),
-                
+                    child: _image == null
+                        ? const Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Icon(
+                                Icons.image_outlined,
+                                size: 40,
+                              ),
+                              SizedBox(
+                                height: 10,
+                              ),
+                              Text('Upload Image')
+                            ],
+                          )
+                        : null,
+                  ),
+                ),
                 const SizedBox(
                   height: 20.0,
                 ),
@@ -202,6 +201,7 @@ class _ADDPageState extends State<ADDPage> {
                 BlocBuilder<ProductBloc, ProductState>(
                   builder: (context, state) {
                     return CustomButton(
+                     
                       backgroundColor: Theme.of(context).primaryColor,
                       foregroundColor: Colors.white,
                       borderColor: Theme.of(context).primaryColor,

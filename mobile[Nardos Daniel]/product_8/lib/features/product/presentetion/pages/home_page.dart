@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import '../../../../injection_container.dart';
 import '../bloc/product_bloc.dart';
 import '../bloc/product_event.dart';
 import '../bloc/product_state.dart';
@@ -89,54 +88,53 @@ class HomePage extends StatelessWidget {
   }
 }
 
-BlocProvider<ProductBloc> homeBuilder(BuildContext context) {
-  return BlocProvider(
-    create: (_) => sl<ProductBloc>()..add(LoadProduct()),
-    child: Column(
-      children: [
-        Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            const Text(
-              'Available Products',
-              style: TextStyle(
-                  fontSize: 25.0,
-                  fontWeight: FontWeight.bold,
-                  fontFamily: AutofillHints.countryName),
-            ),
-            Container(
-                decoration: BoxDecoration(
-                  border: Border.all(width: 2, color: Colors.grey.shade300),
-                  borderRadius: BorderRadius.circular(5),
-                ),
-                child: InkWell(
-                    onTap: () {
-                      Navigator.pushNamed(context, '/search');
-                      // Navigator.push(
-                      //     context,
-                      //     MaterialPageRoute(
-                      //         builder: (context) => Searchpage()));
-                    },
-                    splashColor: Colors.grey.shade300,
-                    child: const Padding(
-                      padding: EdgeInsets.all(8.0),
-                      child: Icon(
-                        Icons.search_outlined,
-                        color: Colors.black45,
-                      ),
-                    ))),
-          ],
-        ),
-        const SizedBox(
-          height: 10,
-        ),
-        BlocBuilder<ProductBloc, ProductState>(builder: (context, state) {
-          // switch (state.runtimeType) {
-          if (state is ProductLoading) {
-            return const Center(child: CircularProgressIndicator());
-          } else if (state is ProductLoaded) {
-            final successState = state;
-            return Expanded(
+Widget homeBuilder(BuildContext context) {
+  context.read<ProductBloc>().add(LoadProduct());
+
+  return Column(
+    children: [
+      Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          const Text(
+            'Available Products',
+            style: TextStyle(
+                fontSize: 25.0,
+                fontWeight: FontWeight.bold,
+                fontFamily: AutofillHints.countryName),
+          ),
+          Container(
+              decoration: BoxDecoration(
+                border: Border.all(width: 2, color: Colors.grey.shade300),
+                borderRadius: BorderRadius.circular(5),
+              ),
+              child: InkWell(
+                  onTap: () {
+                    Navigator.pushNamed(context, '/search');
+                  },
+                  splashColor: Colors.grey.shade300,
+                  child: const Padding(
+                    padding: EdgeInsets.all(8.0),
+                    child: Icon(
+                      Icons.search_outlined,
+                      color: Colors.black45,
+                    ),
+                  ))),
+        ],
+      ),
+      const SizedBox(
+        height: 10,
+      ),
+      BlocBuilder<ProductBloc, ProductState>(builder: (context, state) {
+        if (state is ProductLoading) {
+          return const Center(child: CircularProgressIndicator());
+        } else if (state is ProductLoaded) {
+          final successState = state;
+          return Expanded(
+            child: RefreshIndicator(
+              onRefresh: () async {
+                context.read<ProductBloc>().add(LoadProduct());
+              },
               child: GridView.builder(
                 gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                   crossAxisCount: 1,
@@ -151,13 +149,12 @@ BlocProvider<ProductBloc> homeBuilder(BuildContext context) {
                   );
                 },
               ),
-            );
-           
-          } else {
-            return const Center(child: Text('Error loading products'));
-          }
-        }),
-      ],
-    ),
+            ),
+          );
+        } else {
+          return const Center(child: Text('Error loading products'));
+        }
+      }),
+    ],
   );
 }
