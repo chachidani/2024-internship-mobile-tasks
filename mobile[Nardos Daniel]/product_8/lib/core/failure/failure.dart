@@ -31,3 +31,17 @@ class CacheFailure extends Failure {final String message;
 
   @override
   List<Object> get props => [message];}
+
+  class AuthenticationFailure extends Failure {final String message;
+
+  const AuthenticationFailure({required this.message});
+
+  @override
+  List<Object> get props => [message];}
+
+   class AuthorizationFailure extends Failure {final String message;
+
+  const AuthorizationFailure({required this.message});
+
+  @override
+  List<Object> get props => [message];}

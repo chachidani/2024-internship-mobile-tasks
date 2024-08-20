@@ -4,18 +4,24 @@
 
 // ignore_for_file: no_leading_underscores_for_library_prefixes
 import 'dart:async' as _i7;
-import 'dart:convert' as _i20;
-import 'dart:typed_data' as _i22;
+import 'dart:convert' as _i23;
+import 'dart:typed_data' as _i25;
 
 import 'package:dartz/dartz.dart' as _i2;
 import 'package:http/http.dart' as _i6;
 import 'package:internet_connection_checker/internet_connection_checker.dart'
     as _i4;
 import 'package:mockito/mockito.dart' as _i1;
-import 'package:mockito/src/dummies.dart' as _i21;
+import 'package:mockito/src/dummies.dart' as _i24;
 import 'package:product_8/core/failure/failure.dart' as _i8;
 import 'package:product_8/core/platform/network_info.dart' as _i12;
 import 'package:product_8/core/usecase/usecase.dart' as _i14;
+import 'package:product_8/features/auth/domain/entities/sign_in_user_entitiy.dart'
+    as _i22;
+import 'package:product_8/features/auth/domain/entities/sign_up_user_entitiy.dart'
+    as _i21;
+import 'package:product_8/features/auth/domain/repositories/auth_repository.dart'
+    as _i20;
 import 'package:product_8/features/product/data/data_source/local_data_source/product_local_data_source.dart'
     as _i11;
 import 'package:product_8/features/product/data/data_source/remote_data_source/product_remote_data_source.dart'
@@ -833,6 +839,53 @@ class MockUpdateProductUsecase extends _i1.Mock
       ) as _i7.Future<_i2.Either<_i8.Failure, _i9.Product>>);
 }
 
+/// A class which mocks [AuthRepository].
+///
+/// See the documentation for Mockito's code generation for more information.
+class MockAuthRepository extends _i1.Mock implements _i20.AuthRepository {
+  MockAuthRepository() {
+    _i1.throwOnMissingStub(this);
+  }
+
+  @override
+  _i7.Future<_i2.Either<_i8.Failure, _i21.SignUpUserEntitiy>> signUp(
+          _i21.SignUpUserEntitiy? signUpUserEntitiy) =>
+      (super.noSuchMethod(
+        Invocation.method(
+          #signUp,
+          [signUpUserEntitiy],
+        ),
+        returnValue:
+            _i7.Future<_i2.Either<_i8.Failure, _i21.SignUpUserEntitiy>>.value(
+                _FakeEither_0<_i8.Failure, _i21.SignUpUserEntitiy>(
+          this,
+          Invocation.method(
+            #signUp,
+            [signUpUserEntitiy],
+          ),
+        )),
+      ) as _i7.Future<_i2.Either<_i8.Failure, _i21.SignUpUserEntitiy>>);
+
+  @override
+  _i7.Future<_i2.Either<_i8.Failure, _i21.SignUpUserEntitiy>> signIn(
+          _i22.SignInUserEntitiy? signInUserEntitiy) =>
+      (super.noSuchMethod(
+        Invocation.method(
+          #signIn,
+          [signInUserEntitiy],
+        ),
+        returnValue:
+            _i7.Future<_i2.Either<_i8.Failure, _i21.SignUpUserEntitiy>>.value(
+                _FakeEither_0<_i8.Failure, _i21.SignUpUserEntitiy>(
+          this,
+          Invocation.method(
+            #signIn,
+            [signInUserEntitiy],
+          ),
+        )),
+      ) as _i7.Future<_i2.Either<_i8.Failure, _i21.SignUpUserEntitiy>>);
+}
+
 /// A class which mocks [Client].
 ///
 /// See the documentation for Mockito's code generation for more information.
@@ -888,7 +941,7 @@ class MockHttpClient extends _i1.Mock implements _i6.Client {
     Uri? url, {
     Map<String, String>? headers,
     Object? body,
-    _i20.Encoding? encoding,
+    _i23.Encoding? encoding,
   }) =>
       (super.noSuchMethod(
         Invocation.method(
@@ -919,7 +972,7 @@ class MockHttpClient extends _i1.Mock implements _i6.Client {
     Uri? url, {
     Map<String, String>? headers,
     Object? body,
-    _i20.Encoding? encoding,
+    _i23.Encoding? encoding,
   }) =>
       (super.noSuchMethod(
         Invocation.method(
@@ -950,7 +1003,7 @@ class MockHttpClient extends _i1.Mock implements _i6.Client {
     Uri? url, {
     Map<String, String>? headers,
     Object? body,
-    _i20.Encoding? encoding,
+    _i23.Encoding? encoding,
   }) =>
       (super.noSuchMethod(
         Invocation.method(
@@ -981,7 +1034,7 @@ class MockHttpClient extends _i1.Mock implements _i6.Client {
     Uri? url, {
     Map<String, String>? headers,
     Object? body,
-    _i20.Encoding? encoding,
+    _i23.Encoding? encoding,
   }) =>
       (super.noSuchMethod(
         Invocation.method(
@@ -1018,7 +1071,7 @@ class MockHttpClient extends _i1.Mock implements _i6.Client {
           [url],
           {#headers: headers},
         ),
-        returnValue: _i7.Future<String>.value(_i21.dummyValue<String>(
+        returnValue: _i7.Future<String>.value(_i24.dummyValue<String>(
           this,
           Invocation.method(
             #read,
@@ -1029,7 +1082,7 @@ class MockHttpClient extends _i1.Mock implements _i6.Client {
       ) as _i7.Future<String>);
 
   @override
-  _i7.Future<_i22.Uint8List> readBytes(
+  _i7.Future<_i25.Uint8List> readBytes(
     Uri? url, {
     Map<String, String>? headers,
   }) =>
@@ -1039,8 +1092,8 @@ class MockHttpClient extends _i1.Mock implements _i6.Client {
           [url],
           {#headers: headers},
         ),
-        returnValue: _i7.Future<_i22.Uint8List>.value(_i22.Uint8List(0)),
-      ) as _i7.Future<_i22.Uint8List>);
+        returnValue: _i7.Future<_i25.Uint8List>.value(_i25.Uint8List(0)),
+      ) as _i7.Future<_i25.Uint8List>);
 
   @override
   _i7.Future<_i6.StreamedResponse> send(_i6.BaseRequest? request) =>

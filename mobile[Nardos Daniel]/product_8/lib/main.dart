@@ -2,13 +2,16 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
 
+import 'features/auth/presentation/pages/sign_in_page.dart';
+import 'features/auth/presentation/pages/sign_up_page.dart';
+import 'features/auth/presentation/pages/splash_page.dart';
 import 'features/product/domain/entities/product_entity.dart';
-import 'features/product/presentetion/bloc/product_bloc.dart';
-import 'features/product/presentetion/pages/add_product_page.dart';
-import 'features/product/presentetion/pages/home_page.dart';
-import 'features/product/presentetion/pages/product_details_page.dart';
-import 'features/product/presentetion/pages/search_page.dart';
-import 'features/product/presentetion/pages/update_page.dart';
+import 'features/product/presentation/bloc/product_bloc.dart';
+import 'features/product/presentation/pages/add_product_page.dart';
+import 'features/product/presentation/pages/home_page.dart';
+import 'features/product/presentation/pages/product_details_page.dart';
+import 'features/product/presentation/pages/search_page.dart';
+import 'features/product/presentation/pages/update_page.dart';
 import 'injection_container.dart' as di;
 import 'injection_container.dart';
 
@@ -35,6 +38,12 @@ class MyApp extends StatelessWidget {
       child: MaterialApp(
         onGenerateRoute: (settings) {
           switch (settings.name) {
+            case '/splash':
+              return _createRoute(const SplashPage());
+            case '/signin':
+              return _createRoute(const SignInPage());
+            case '/signup':
+              return _createRoute(const SignUpPage());
             case '/':
               return _createRoute(const HomePage());
             case '/search':
@@ -56,7 +65,7 @@ class MyApp extends StatelessWidget {
               return null;
           }
         },
-        initialRoute: '/',
+        initialRoute: '/signin',
         title: 'Flutter Demo',
         theme: ThemeData(
           textTheme: GoogleFonts.poppinsTextTheme(),
