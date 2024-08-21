@@ -4,9 +4,14 @@ import 'package:google_fonts/google_fonts.dart';
 import '../../../product/presentation/widgets/custom_buttom.dart';
 import '../widget/text_field.dart';
 
-class SignInPage extends StatelessWidget {
+class SignInPage extends StatefulWidget {
   const SignInPage({super.key});
 
+  @override
+  State<SignInPage> createState() => _SignInPageState();
+}
+
+class _SignInPageState extends State<SignInPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
