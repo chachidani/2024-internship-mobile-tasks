@@ -29,10 +29,7 @@ class _SignUpPageState extends State<SignUpPage> {
 
   @override
   Widget build(BuildContext context) {
-    emailController.text = 'jon@gmail.com';
-    passwordController.text = '123456';
-    confirmPasswordController.text = '123456';
-    isChecked = true;
+  
 
     return BlocListener<AuthBloc, AuthState>(
       listener: (context, state) {

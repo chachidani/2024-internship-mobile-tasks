@@ -76,7 +76,7 @@ class HomePage extends StatelessWidget {
               ),
             ),
             const SizedBox(
-              width: 125.0,
+              width: 130.0,
             ),
             Container(
                 decoration: BoxDecoration(
