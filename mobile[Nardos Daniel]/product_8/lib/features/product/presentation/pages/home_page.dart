@@ -76,7 +76,7 @@ class HomePage extends StatelessWidget {
               ),
             ),
             const SizedBox(
-              width: 150.0,
+              width: 125.0,
             ),
             Container(
                 decoration: BoxDecoration(
@@ -103,6 +103,12 @@ class HomePage extends StatelessWidget {
                             ))
                       ]),
                     ))),
+
+                      IconButton(
+                onPressed: () {
+                  context.read<AuthBloc>().add(LogoutEvent());
+                },
+                icon: const Icon(Icons.logout))
           ],
         ),
         body: Padding(
