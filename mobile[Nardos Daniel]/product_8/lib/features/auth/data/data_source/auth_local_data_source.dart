@@ -1,12 +1,17 @@
+import 'dart:convert';
+
+import 'package:dartz/dartz.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../../../core/exception/exception.dart';
 
 abstract class AuthLocalDataSource {
-  Future<void> cacheToken(String token);
+  Future<Unit> cacheToken(String token);
   Future<String> getToken();
-  Future<void> deleteToken();
+  Future<Unit> deleteToken();
 }
+
+const TOKEN = 'TOKEN';
 
 class AuthLocalDataSourceImpl implements AuthLocalDataSource {
   final SharedPreferences sharedPreferences;
@@ -14,21 +19,37 @@ class AuthLocalDataSourceImpl implements AuthLocalDataSource {
   AuthLocalDataSourceImpl({required this.sharedPreferences});
 
   @override
-  Future<void> cacheToken(String token) async {
-    await sharedPreferences.setString('token', token);
+  Future<Unit> cacheToken(String token) async {
+    try {
+      final jsonToken = json.encode(token);
+      sharedPreferences.setString(TOKEN, jsonToken);
+      return Future.value(unit);
+    } catch (e) {
+      throw CacheException();
+    }
   }
 
   @override
-  Future<void> deleteToken() async {
-    await sharedPreferences.remove('token');
+  Future<Unit> deleteToken() async {
+    try {
+      sharedPreferences.remove(TOKEN);
+      return Future.value(unit);
+    } catch (e) {
+      throw CacheException();
+    }
   }
 
   @override
   Future<String> getToken() async {
-    final jsonString = sharedPreferences.getString('token');
-    if (jsonString != null) {
-      return Future.value(jsonString);
-    } else {
+    try {
+      final token = sharedPreferences.getString(TOKEN);
+      if (token != null) {
+        final decodedJson = json.decode((token));
+        return Future.value(decodedJson);
+      } else {
+        throw CacheException();
+      }
+    } catch (e) {
       throw CacheException();
     }
   }

@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
 
+import 'bloc_observer.dart';
+import 'features/auth/presentation/bloc/auth_bloc/auth_bloc.dart';
 import 'features/auth/presentation/pages/sign_in_page.dart';
 import 'features/auth/presentation/pages/sign_up_page.dart';
 import 'features/auth/presentation/pages/splash_page.dart';
@@ -18,7 +20,7 @@ import 'injection_container.dart';
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await di.init();
-
+  Bloc.observer = SimpleBlocObserver();
   runApp(const MyApp());
 }
 
@@ -28,13 +30,27 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return BlocProvider(
-      create: (context) => ProductBloc(
-          getProductByIdUsecase: sl(),
-          getProductsUsecase: sl(),
-          deleteProductUsecase: sl(),
-          updateProductUsecase: sl(),
-          insertProductUsecase: sl()),
+    return MultiBlocProvider(
+      providers: [
+        BlocProvider(
+          create: (context) => ProductBloc(
+              getProductByIdUsecase: sl(),
+              getProductsUsecase: sl(),
+              deleteProductUsecase: sl(),
+              updateProductUsecase: sl(),
+              insertProductUsecase: sl()),
+        ),
+        BlocProvider(
+          create: (context) => AuthBloc(
+           sl(),
+            sl(),
+            sl(),
+            sl(),
+          ),
+        ),
+
+         
+      ],
       child: MaterialApp(
         onGenerateRoute: (settings) {
           switch (settings.name) {
@@ -44,7 +60,7 @@ class MyApp extends StatelessWidget {
               return _createRoute(const SignInPage());
             case '/signup':
               return _createRoute(const SignUpPage());
-            case '/':
+            case '/home':
               return _createRoute(const HomePage());
             case '/search':
               return _createRoute(const SearchPage());
@@ -65,13 +81,13 @@ class MyApp extends StatelessWidget {
               return null;
           }
         },
-        initialRoute: '/signin',
+        initialRoute: '/splash',
         title: 'Flutter Demo',
         theme: ThemeData(
           textTheme: GoogleFonts.poppinsTextTheme(),
-         primaryColor: const Color.fromARGB(255, 63, 81, 243),
-            colorScheme: ColorScheme.fromSeed(
-                seedColor: const Color.fromARGB(255, 63, 81, 243)),
+          primaryColor: const Color.fromARGB(255, 63, 81, 243),
+          colorScheme: ColorScheme.fromSeed(
+              seedColor: const Color.fromARGB(255, 63, 81, 243)),
           useMaterial3: true,
         ),
         // home: const HomePage(),

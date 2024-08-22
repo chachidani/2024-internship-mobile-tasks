@@ -1,4 +1,7 @@
+import 'dart:io';
+
 import 'package:dartz/dartz.dart';
+import 'package:flutter/material.dart';
 
 import '../../../../core/exception/exception.dart';
 import '../../../../core/failure/failure.dart';
@@ -22,18 +25,19 @@ class AuthRepositoryImpl extends AuthRepository {
       required this.networkInfo});
 
   @override
-  Future<Either<Failure, SignUpUserEntitiy>> signUp(
+  Future<Either<Failure, Unit>> signUp(
       SignUpUserEntitiy signUpUserEntitiy) async {
-    if (await networkInfo.isConnected) {
+   if (await networkInfo.isConnected) {
       try {
-        SignUpUserModel newUserModel = SignUpUserModel(
-            email: signUpUserEntitiy.email,
-            password: signUpUserEntitiy.password,
-            name: signUpUserEntitiy.name);
-        final result = await authRemoteDataSource.signUp(newUserModel);
+        final result = await authRemoteDataSource
+            .signUp(SignUpUserModel.toModel(signUpUserEntitiy));
         return Right(result);
-      } on ServerException catch (e) {
+      } on ServerException {
         return const Left(ServerFailure(message: 'Server Error'));
+      } on SocketException {
+        return const Left(ConnectionFailure(message: 'No Internet Connection'));
+      } on UserAlreadyExistsException {
+        return const Left(PermissionFailure(message: 'User Already Exists'));
       }
     } else {
       return const Left(ConnectionFailure(message: 'No Internet Connection'));
@@ -41,21 +45,54 @@ class AuthRepositoryImpl extends AuthRepository {
   }
 
   @override
-  Future<Either<Failure, UserDataEntity>> signIn(
+  Future<Either<Failure, Unit>> signIn(
       SignInUserEntitiy signInUserEntitiy) async {
     if (await networkInfo.isConnected) {
       try {
-        SignInUserModel signInUserModel = SignInUserModel(
-            email: signInUserEntitiy.email,
-            password: signInUserEntitiy.password);
-        final result = await authRemoteDataSource.signIn(signInUserModel);
-        authLocalDataSource.cacheToken(result.token);
-        return Right(result);
-      } on ServerException catch (e) {
+        final result =
+            await authRemoteDataSource.signIn(SignInUserModel.toModel(signInUserEntitiy));
+        try {
+          await authLocalDataSource.cacheToken(result.token);
+        } on CacheException {
+          debugPrint('Caching Token Error');
+        }
+        return const Right(unit);
+      } on UnauthorizedException {
+        return const Left(PermissionFailure(message: 'Unauthorized'));
+      } on ServerException {
         return const Left(ServerFailure(message: 'Server Error'));
+      } on SocketException {
+        return const Left(ConnectionFailure(message: 'No Internet Connection'));
       }
     } else {
       return const Left(ConnectionFailure(message: 'No Internet Connection'));
+    }
+  }
+
+  @override
+  Future<Either<Failure, UserDataEntity>> getUser() async {
+    if (await networkInfo.isConnected) {
+      try {
+        final token = await authLocalDataSource.getToken();
+        final result = await authRemoteDataSource.getUser(token);
+        return Right(result.toEntity());
+      } on ServerException {
+        return const Left(ServerFailure(message: 'Server Error'));
+      } on SocketException {
+        return const Left(ConnectionFailure(message: 'No Internet Connection'));
+      }
+    } else {
+      return const Left(ConnectionFailure(message: 'No Internet Connection'));
+    }
+  }
+
+  @override
+  Future<Either<Failure, Unit>> logOut() async {
+    try {
+      await authLocalDataSource.deleteToken();
+      return const Right(unit);
+    } on CacheException {
+      return const Left(CacheFailure(message: 'Cache Error'));
     }
   }
 }

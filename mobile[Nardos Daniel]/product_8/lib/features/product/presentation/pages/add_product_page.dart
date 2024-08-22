@@ -68,7 +68,7 @@ class _ADDPageState extends State<ADDPage> {
           if (state is ProductCreatedState) {
             ScaffoldMessenger.of(context).showSnackBar(
                 const SnackBar(content: Text('Product Created Successfully')));
-            Navigator.of(context).pushNamed('/');
+            Navigator.of(context).pushNamed('/home');
           } else if (state is ProductCreatedErrorState) {
             ScaffoldMessenger.of(context)
                 .showSnackBar(SnackBar(content: Text(state.message)));

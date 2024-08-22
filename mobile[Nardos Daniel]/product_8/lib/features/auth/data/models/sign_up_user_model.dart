@@ -1,7 +1,7 @@
 import '../../domain/entities/sign_up_user_entitiy.dart';
 
 class SignUpUserModel extends SignUpUserEntitiy{
-  const SignUpUserModel({
+   SignUpUserModel({
     required String email,
     required String password,
     required String name,
@@ -25,5 +25,13 @@ class SignUpUserModel extends SignUpUserEntitiy{
       'password': password,
       'name': name,
     };
+  }
+
+  static SignUpUserModel toModel(SignUpUserEntitiy entity) {
+    return SignUpUserModel(
+      email: entity.email,
+      password: entity.password,
+      name: entity.name,
+    );
   }
 }

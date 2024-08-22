@@ -6,6 +6,7 @@ import 'package:http_parser/http_parser.dart';
 
 import '../../../../../core/constants/constants.dart';
 import '../../../../../core/exception/exception.dart';
+import '../../../../../core/network/custom_client.dart';
 import '../../models/product_model.dart';
 
 abstract class ProductRemoteDataSource {
@@ -17,14 +18,15 @@ abstract class ProductRemoteDataSource {
 }
 
 class ProductRemoteDataSourceImpl extends ProductRemoteDataSource {
-  final http.Client client;
+  // final http.Client client;
+  final CustomHttpClient client;
 
   ProductRemoteDataSourceImpl({required this.client});
 
   @override
   Future<List<ProductModel>> getProducts() async {
     try {
-      final response = await client.get(Uri.parse(Urls.baseUrl));
+      final response = await client.get(Urls.baseUrl);
       if (response.statusCode == 200) {
         return ProductModel.fromJsonList(json.decode(response.body)['data']);
       } else {
@@ -38,7 +40,7 @@ class ProductRemoteDataSourceImpl extends ProductRemoteDataSource {
   @override
   Future<ProductModel> getProductById(String id) async {
     try {
-      final response = await client.get(Uri.parse(Urls.getProdutbyId(id)));
+      final response = await client.get(Urls.getProdutbyId(id));
       if (response.statusCode == 200) {
         return ProductModel.fromJson(json.decode(response.body)['data']);
       } else {
@@ -74,7 +76,7 @@ class ProductRemoteDataSourceImpl extends ProductRemoteDataSource {
     }
 
     try {
-      http.StreamedResponse response = await request.send();
+      http.StreamedResponse response = await client.send(request);
 
       if (response.statusCode == 201) {
         final responseJson = await response.stream.bytesToString();
@@ -99,9 +101,9 @@ class ProductRemoteDataSourceImpl extends ProductRemoteDataSource {
     });
     try {
       final response = await client.put(
-          Uri.parse(Urls.getProdutbyId(productId)),
+          Urls.getProdutbyId(productId),
           body: jsonBody,
-          headers: {'Content-Type': 'application/json'});
+        );
       if (response.statusCode == 200) {
         return ProductModel.fromJson(json.decode(response.body)['data']);
       } else {
@@ -115,7 +117,7 @@ class ProductRemoteDataSourceImpl extends ProductRemoteDataSource {
   @override
   Future<void> deleteProduct(String id) async {
     try {
-      final response = await client.delete(Uri.parse(Urls.getProdutbyId(id)));
+      final response = await client.delete(Urls.getProdutbyId(id));
       if (response.statusCode == 200) {
         return;
       } else {

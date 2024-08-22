@@ -1,56 +1,24 @@
+import '../../../../core/exception/exception.dart';
 import '../../domain/entities/user_data_entity.dart';
 
 class UserDataModel extends UserDataEntity{
-  const UserDataModel({
-    required  data,
-    required token,
+   UserDataModel({
+    required  email,
+    required name,
   }) : super(
-    data: data,
-    token: token,
+    email: email,
+    name: name,
   );
 
-
+ UserDataEntity toEntity() => UserDataEntity(email: email, name: name);
 
   factory UserDataModel.fromJson(Map<String, dynamic> json) {
-    return UserDataModel(
-      data: DataModel.fromJson(json['data'] as Map<String, dynamic>),
-      token: json['token'],
-    );
+    try{return UserDataModel(email: json['email'], name: json['name']);}
+    catch (e) {
+      throw JsonParsingException();
+    }
   }
 
-  Map<String, dynamic> toJson() {
-    return {
-      'data': (data as DataModel).toJson(),
-      'token': token,
-    };
-  }
+
 }
 
-class DataModel extends Data {
- 
-  const DataModel({
-    
-    required name,
-    required email,
-    
-  }) : super(
-    name: name,
-    email: email,
-  );
-
-  factory DataModel.fromJson(Map<String, dynamic> json) {
-    return DataModel(
-      
-      name: json['name'] as String,
-      email: json['email'] as String,
-    );
-  }
-
-  Map<String, dynamic> toJson() {
-    return {
-      
-      'name': name,
-      'email': email,
-    };
-  }
-}

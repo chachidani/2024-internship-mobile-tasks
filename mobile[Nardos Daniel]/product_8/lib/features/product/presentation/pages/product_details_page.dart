@@ -21,8 +21,8 @@ class Detailspage extends StatelessWidget {
             if (state is ProductDeleteState) {
               ScaffoldMessenger.of(context).showSnackBar(
                   const SnackBar(content: Text('deleted successfully')));
-            
-              Navigator.of(context).pushNamed('/');
+              Navigator.of(context).pushNamed('/home');
+              // Navigator.pop(context);
             } else if (state is ProductError) {
               ScaffoldMessenger.of(context).showSnackBar(
                   const SnackBar(content: Text('Error deleting product')));
@@ -172,7 +172,8 @@ class Detailspage extends StatelessWidget {
                                       ),
                                 onPressed: () => {
                                       context.read<ProductBloc>().add(
-                                          DeleteProductEvent(id: product.id))
+                                          DeleteProductEvent(id: product.id)),
+                                      // Navigator.of(context).pushNamed('/home')
                                     }),
                             CustomButton(
                                 backgroundColor: Theme.of(context).primaryColor,

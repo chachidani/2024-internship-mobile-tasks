@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import '../../../auth/presentation/bloc/auth_bloc/auth_bloc.dart';
 import '../bloc/product_bloc.dart';
 import '../bloc/product_event.dart';
 import '../bloc/product_state.dart';
@@ -10,78 +11,113 @@ class HomePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        actions: [
-          Container(
-            padding: const EdgeInsets.all(5.0),
-            child: Row(
-              children: [
-                ClipRRect(
-                  borderRadius: const BorderRadius.all(Radius.circular(20)),
-                  child: Image.asset(
-                    'assets/img1.jpg',
-                    width: 40.0,
-                    height: 50.0,
+    context.read<AuthBloc>().add(GetUserEvent());
+    return BlocListener<AuthBloc, AuthState>(
+      listener: (context, state) {
+        if (state is AuthLoggedOut) {
+          if (!context.mounted) return;
+          ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+            content: const Text('Logged out successfully'),
+            backgroundColor: Theme.of(context).primaryColor,
+          ));
+          Navigator.pushNamedAndRemoveUntil(
+            context,
+            '/signin',
+            (Route<dynamic> route) => false,
+          );
+        }
+      },
+      child: Scaffold(
+        appBar: AppBar(
+          actions: [
+            Container(
+              padding: const EdgeInsets.all(5.0),
+              child: Row(
+                children: [
+                  ClipRRect(
+                    borderRadius: const BorderRadius.all(Radius.circular(20)),
+                    child: Image.asset(
+                      'assets/img1.jpg',
+                      width: 40.0,
+                      height: 50.0,
+                    ),
                   ),
-                ),
-                const SizedBox(
-                  width: 20.0,
-                ),
-                const Column(
-                  children: [
-                    Text('July 14,2023',
-                        style: TextStyle(fontWeight: FontWeight.w400)),
-                    Text(
-                      'Hello, Yohannes',
-                      style: TextStyle(fontWeight: FontWeight.bold),
-                    )
-                  ],
-                )
-              ],
-            ),
-          ),
-          const SizedBox(
-            width: 150.0,
-          ),
-          Container(
-              decoration: BoxDecoration(
-                border: Border.all(width: 2, color: Colors.grey.shade300),
-                borderRadius: BorderRadius.circular(5),
+                  const SizedBox(
+                    width: 20.0,
+                  ),
+                   Column(
+                    children: [
+                      const Text('July 14,2023',
+                          style: TextStyle(fontWeight: FontWeight.w400)),
+                      Row(
+                        children: [
+                          const Text(
+                            'Hello, ',
+                            style: TextStyle(fontWeight: FontWeight.bold),
+                          ),
+                          BlocBuilder<AuthBloc, AuthState>(
+                            builder: (context, state) {
+                              if (state is AuthAuthenticated) {
+                                return Text(
+                                  state.userDataEntity.name,
+                                  style: const TextStyle(fontWeight: FontWeight.bold),
+                                );
+                              }else{
+                                return const Text('User',  style: TextStyle(fontWeight: FontWeight.bold),);
+                              }
+                             
+                            },
+                          ),
+                        ],
+                      )
+                    ],
+                  )
+                ],
               ),
-              child: InkWell(
-                  onTap: () {},
-                  splashColor: Colors.grey.shade300,
-                  child: Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: Stack(children: [
-                      const Icon(Icons.notifications_none_rounded),
-                      Positioned(
-                          top: 3,
-                          right: 5,
-                          child: Container(
-                            width: 6,
-                            height: 6,
-                            decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(20),
-                                color: const Color.fromARGB(255, 63, 81, 243)),
-                          ))
-                    ]),
-                  ))),
-        ],
-      ),
-      body: Padding(
-        padding: const EdgeInsets.all(20),
-        child: homeBuilder(context),
-      ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: () {
-          Navigator.pushNamed(context, '/add');
-        },
-        backgroundColor: Colors.indigoAccent.shade400,
-        child: const Icon(
-          Icons.add,
-          color: Colors.white,
+            ),
+            const SizedBox(
+              width: 150.0,
+            ),
+            Container(
+                decoration: BoxDecoration(
+                  border: Border.all(width: 2, color: Colors.grey.shade300),
+                  borderRadius: BorderRadius.circular(5),
+                ),
+                child: InkWell(
+                    onTap: () {},
+                    splashColor: Colors.grey.shade300,
+                    child: Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Stack(children: [
+                        const Icon(Icons.notifications_none_rounded),
+                        Positioned(
+                            top: 3,
+                            right: 5,
+                            child: Container(
+                              width: 6,
+                              height: 6,
+                              decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(20),
+                                  color:
+                                      const Color.fromARGB(255, 63, 81, 243)),
+                            ))
+                      ]),
+                    ))),
+          ],
+        ),
+        body: Padding(
+          padding: const EdgeInsets.all(20),
+          child: homeBuilder(context),
+        ),
+        floatingActionButton: FloatingActionButton(
+          onPressed: () {
+            Navigator.pushNamed(context, '/add');
+          },
+          backgroundColor: Colors.indigoAccent.shade400,
+          child: const Icon(
+            Icons.add,
+            color: Colors.white,
+          ),
         ),
       ),
     );

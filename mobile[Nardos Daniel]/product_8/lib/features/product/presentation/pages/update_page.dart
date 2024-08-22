@@ -72,7 +72,7 @@ class _UpDateState extends State<UpDate> {
           if (state is ProductUpdatedState) {
             ScaffoldMessenger.of(context).showSnackBar(
                 const SnackBar(content: Text('Product Updated Successfully')));
-            Navigator.of(context).pushNamed('/');
+            Navigator.of(context).pushNamed('/home');
           }  else if (state is ProductUpdatedErrorState) {
             ScaffoldMessenger.of(context)
                 .showSnackBar(SnackBar(content: Text(state.message)));
